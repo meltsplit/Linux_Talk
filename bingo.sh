@@ -2,3 +2,4 @@
 
 echo "welcome BINGO"
 echo "yeom"
+echo "welcome"
