@@ -20,7 +20,6 @@ SignIn() {
     fi
 }
 
-
 SignUp() {
     echo -n "Your username? : "
     read username
