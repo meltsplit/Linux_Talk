@@ -5,29 +5,45 @@ declare -i num
 PS3="Input number(1-3): "
 
 SignIn() {
+    checkID
+    checkPassword
+}
+checkID() {
     echo -n "Username: "
     read username
-    arr[0]=${username}
-    echo -n "Password: "
-    read -s password
-    echo -e "\n"
-    arr[1]=${password}
-    if [ "${username} ${password}" = "`grep ${username} userID.txt`" ];
-    then
-        echo "login success"
-    else
-        echo "login failed"
+    declare -i exist=0
+    while read line; do
+        if [ $username == `echo $line | cut -d ":" -f 1` ]; then
+            echo "--if in--"
+		exist=1
+            break
+        fi
+    done < userID.txt
+
+    if [ $exist -eq 0 ]; then
+       echo "Invalid ID"
+	    checkID
     fi
 }
+checkPassword(){
+    echo -n "Password: "
+    read password
+    if [ $password -eq `grep $username userID.txt | cut -d ":" -f 2` ]; then
+        echo "success"
+    else
+        echo "fail"
+    fi
+}
+
 
 SignUp() {
     echo -n "Your username? : "
     read username
-    arr[0]=${username}
+    arr[0]=${password}
     echo -n "Your password? : "
     read -s password
     arr[1]=${password}
-    echo "${username} ${password}" >> userID.txt
+    echo "${username}:${password}" >> userID.txt
     echo -e "\n"
 }
 
