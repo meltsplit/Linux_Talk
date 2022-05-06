@@ -39,7 +39,7 @@ checkPassword(){
 SignUp() {
     echo -n "Your username? : "
     read username
-    arr[0]=${password}
+    arr[0]=${username}
     echo -n "Your password? : "
     read -s password
     arr[1]=${password}
