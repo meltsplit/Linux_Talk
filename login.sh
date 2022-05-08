@@ -27,8 +27,8 @@ checkID() {
 }
 checkPassword(){
     echo -n "Password: "
-    read password
-    if [ $password -eq `grep $username userID.txt | cut -d ":" -f 2` ]; then
+    read -s password
+    if [ $password = `grep $username userID.txt | cut -d ":" -f 2` ]; then
         echo "success"
     else
         echo "fail"
