@@ -13,7 +13,7 @@ checkID() {
     read username
     declare -i exist=0
     while read line; do
-        if [ $username == `echo $line | cut -d ":" -f 1` ]; then
+        if [ "${username}" = "`echo $line | cut -d ":" -f 1`" ]; then
             echo "--if in--"
 		exist=1
             break
@@ -21,14 +21,14 @@ checkID() {
     done < userID.txt
 
     if [ $exist -eq 0 ]; then
-       echo "Invalid ID"
+        echo "Invalid ID"
 	    checkID
     fi
 }
 checkPassword(){
     echo -n "Password: "
     read -s password
-    if [ $password = `grep $username userID.txt | cut -d ":" -f 2` ]; then
+    if [ "${password}" = "`grep $username userID.txt | cut -d ":" -f 2`" ]; then
         echo "success"
     else
         echo "fail"
