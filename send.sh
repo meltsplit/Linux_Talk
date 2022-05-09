@@ -6,8 +6,11 @@
 e.g. ./send.sh ${username} ${message} ${dest}
 END
 
+source ./login.sh
+echo username
+
 username=$1
 message=$2
 dest=$3
 
-echo "${username} [32m$(date "+%l:%M %^p")[0m : ${message}" >> ${dest}
+echo "${username} [32m$(date "+%m-%d-%l:%M %^p")[0m : ${message}" >> ${dest}

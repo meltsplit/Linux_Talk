@@ -30,6 +30,7 @@ checkPassword(){
     read -s password
     if [ "${password}" = "`grep $username userID.txt | cut -d ":" -f 2`" ]; then
         echo "success"
+		    /bin/bash /home/`whoami`/Linux_FinalProject/chatroom_list.sh
     else
         echo "fail"
     fi
