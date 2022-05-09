@@ -1,10 +1,12 @@
 #!/bin/bash
 
+username=$1
+
 updateUI(){
     clear
     echo "<<Update UI>>"
     cat chatLog1.txt
-
+    echo -e "\n"
 }
 
 sendMessage(){
@@ -12,6 +14,8 @@ sendMessage(){
     updateUI
     echo " <<Send Message>> " 
     read -p "Input Message: " msg
+    export msg
+    . send.sh ${username}
 
 }
 deleteMessage(){
@@ -46,6 +50,7 @@ selectMode() {
     #3 = find 
     #4 = exit
     
+    PS3="Input an integer(1-4): "
     select opt in "Send" "Delete" "Find" "Exit"
     do
     case ${opt} in
