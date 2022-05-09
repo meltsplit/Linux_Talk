@@ -15,6 +15,7 @@ checkID() {
     while read line; do
         if [ "${username}" = "`echo $line | cut -d ":" -f 1`" ]; then
             echo "--if in--"
+				    export username
 		exist=1
             break
         fi
@@ -30,7 +31,7 @@ checkPassword(){
     read -s password
     if [ "${password}" = "`grep $username userID.txt | cut -d ":" -f 2`" ]; then
         echo "success"
-		    /bin/bash /home/`whoami`/Linux_FinalProject/chatroom_list.sh
+		    /bin/bash `pwd`/chatroom_list.sh
     else
         echo "fail"
     fi
