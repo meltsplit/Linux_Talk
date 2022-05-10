@@ -35,7 +35,7 @@ exitRoom(){
 	clear
 	updateUI
 	echo " <<Exit Room>> "
-	exit 0
+	exit 0  # 종료가 안되어서 임시로 해놓음. 
 }
 errorMode(){
     	clear
