@@ -6,3 +6,6 @@
 [32m05-10 4:44 AM ; [34mbreak [0m ; hello
 [32m05-10 4:45 AM ; [34mbreak [0m ; you can delete any messages.
 
+[32m05-10 7:26 PM ; [34m [0m ; asmdfasdfa
+[32m05-10 7:26 PM ; [34m [0m ; asdfaweafsd
+[32m05-10 7:26 PM ; [34m [0m ; 2

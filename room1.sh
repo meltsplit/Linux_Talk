@@ -23,7 +23,7 @@ deleteMessage(){
     	clear
     	updateUI
     	echo " <<delete Message>> "
-	read -p "Input Message: " msg_d
+	    read -p "Input Message: " msg_d
 	export msg_d
 	sed -i "/$msg_d/d" chatLog1.txt
 }
@@ -37,15 +37,9 @@ findMessage(){
 exitRoom(){
 	clear
 	updateUI
-	clear
 	echo " <<Exit Room>> "
-	exit 0
-}
-errorMode(){
-    	clear
-    	updateUI
-    	echo "not valid mode"
-
+	sleep 1
+	break
 }
 
 selectMode() {
@@ -65,18 +59,16 @@ selectMode() {
 	do
 		read -p "Choose mode(1-4): " opt
 		if [ ${opt} == 1 -o ${opt} == 2 -o ${opt} == 3 -o ${opt} == 4 ]; then
-			
 			break
 		fi
 	done
 	
 	
 	case ${opt} in
-	"1") sendMessage break;;
-	"2") deleteMessage break;;
-	"3") findMessage break;;
-	"4") exitRoom break;;
-	*) errorMode break;;
+	"1") sendMessage;;
+	"2") deleteMessage;;
+	"3") findMessage;;
+	"4") exitRoom;;
 	esac
 	updateUI
 
@@ -86,16 +78,12 @@ selectMode() {
 room1(){
     updateUI
     selectMode
-    	while [ ${opt} != "Exit" ] 
-    	do
-        	updateUI
-        	selectMode	
-    	done
 }
 
 #code start point 
 
 room1
-bash chatroom_list.sh
+
+
 
 
