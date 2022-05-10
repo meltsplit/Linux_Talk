@@ -4,7 +4,7 @@ username=$1
 
 updateUI(){
     	clear
-	    echo "<<welcome to room1>>"
+	echo "<<welcome to room1>>"
     	echo "<<Update UI>>"
 
     	cat chatLog1.txt
@@ -78,6 +78,7 @@ selectMode() {
 	"4") exitRoom break;;
 	*) errorMode break;;
 	esac
+	updateUI
 
 	done
 }
