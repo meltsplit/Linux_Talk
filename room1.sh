@@ -25,7 +25,7 @@ deleteMessage(){
     	echo " <<delete Message>> "
 	read -p "Input Message: " msg_d
 	export msg_d
-	sed -i "/$msg1/d" chatLog1.txt
+	sed -i "/$msg_d/d" chatLog1.txt
 }
 findMessage(){
     	clear
@@ -39,7 +39,7 @@ exitRoom(){
 	updateUI
 	clear
 	echo " <<Exit Room>> "
-	exit 0 # 종료가 안되어서 임시로 해놓음.
+	exit 0
 }
 errorMode(){
     	clear
