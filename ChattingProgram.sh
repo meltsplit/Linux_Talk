@@ -7,11 +7,11 @@ export username="default name"
 
 
 mainView(){
-
-    opt=0
+    	opt=0
 	while [ $opt != 3 ]
 	do
-    echo "[ Main View ]"
+	clear
+    	echo "[ Main View ]"
 	echo "1) Sign In"
 	echo "2) Sign up"
 	echo "3) Exit"

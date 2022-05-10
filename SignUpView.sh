@@ -1,6 +1,7 @@
 #! /bin/bash
 
 SignUpView() {
+    clear
     echo -n "Your username? : "
     read username
 
