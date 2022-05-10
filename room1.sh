@@ -3,73 +3,73 @@
 username=$1
 
 updateUI(){
-    clear
-    echo "<<Update UI>>"
-    cat chatLog1.txt
-    echo -e "\n"
+    	clear
+    	echo "<<Update UI>>"
+    	cat chatLog1.txt
+    	echo -e "\n"
 }
 
 sendMessage(){
-    clear
-    updateUI
-    echo " <<Send Message>> " 
-    read -p "Input Message: " msg
-    export msg
-    . send.sh ${username}
+    	clear
+    	updateUI
+    	echo " <<Send Message>> " 
+    	read -p "Input Message: " msg
+    	export msg
+    	. send.sh ${username}
 
 }
 deleteMessage(){
-    clear
-    updateUI
-    echo " <<delete Message>> "
+    	clear
+    	updateUI
+    	echo " <<delete Message>> "
 
 }
 findMessage(){
-    clear
-    updateUI
-    echo " <<Find Messeage>> "
+    	clear
+    	updateUI
+    	echo " <<Find Messeage>> "
 
 }
 exitRoom(){
-    clear
-    updateUI
-    echo " <<Exit Room>> "
-
+	clear
+	updateUI
+	echo " <<Exit Room>> "
+	exit 0
 }
 errorMode(){
-    clear
-    updateUI
-    echo "not valid mode"
+    	clear
+    	updateUI
+    	echo "not valid mode"
 
 }
 
 selectMode() {
 
-    #1 = send
-    #2 = delete
-    #3 = find 
-    #4 = exit
+    	#1 = send
+    	#2 = delete
+    	#3 = find 
+    	#4 = exit
     
-    PS3="Input an integer(1-4): "
-    select opt in "Send" "Delete" "Find" "Exit"
-    do
-    case ${opt} in
-    "Send") sendMessage break;;
-    "Delete") deleteMessage break;;
-    "Find") findMessage break;;
-    "Exit") exitRoom break;;
-    *) errorMode break;;
-    esac
-    done
+    	PS3="Input an integer(1-4): "
+    	select opt in "Send" "Delete" "Find" "Exit"
+    	do
+    	case ${opt} in
+    	"Send") sendMessage break;;
+    	"Delete") deleteMessage break;;
+    	"Find") findMessage break;;
+    	"Exit") exitRoom break;;
+    	*) errorMode break;;
+    	esac
+    	done
 }
 
 room1(){
-    while [ true ] 
-    do
-        echo " << Room1 >> "
-        updateUI
-        selectMode 
-    done
+    	while [ true ] 
+    	do
+        	echo " << Room1 >> "
+        	updateUI
+        	selectMode 
+    	done
 }
 
 #code start point 

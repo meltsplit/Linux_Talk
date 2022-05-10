@@ -6,3 +6,4 @@
 18:00;SeungJoon;agree
 18:05;Seokwoo;I think we have add date too. not only time
 [32m05-10 2:19 오전 ; [34muser1000 [0m ; tried to add date, time
+[32m05-10 3:00 AM ; [34mbreak [0m ; hi
