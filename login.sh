@@ -32,7 +32,6 @@ checkPassword(){
     if [ "${password}" = "`grep $username userID.txt | cut -d ":" -f 2`" ]; then
         echo "success"
 		./chatroom_list.sh ${username}
-    exit
     else
         echo "fail"
     fi
