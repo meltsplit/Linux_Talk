@@ -2,6 +2,7 @@
 
 declare -a arr
 declare -i num
+export username="default name"
 PS3="Input number(1-3): "
 
 SignIn() {

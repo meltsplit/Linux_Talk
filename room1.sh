@@ -6,6 +6,7 @@ updateUI(){
     	clear
 	    echo "<<welcome to room1>>"
     	echo "<<Update UI>>"
+
     	cat chatLog1.txt
     	echo -e "\n"
 }
@@ -29,7 +30,7 @@ deleteMessage(){
 findMessage(){
     	clear
     	updateUI
-    	echo " <<Find Messeage>> "
+    	echo " <<Find Message>> "
 	read -p "Input Message: " msg
 	cat chatLog1.txt | grep -niw --color "$msg" 
 }
@@ -49,22 +50,36 @@ errorMode(){
 
 selectMode() {
 
-    	#1 = send
-    	#2 = delete
-    	#3 = find 
-    	#4 = exit
-    
-    	PS3="Input an integer(1-4): "
-    	select opt in "Send" "Delete" "Find" "Exit"
-    	do
-    	case ${opt} in
-    	"Send") sendMessage break;;
-    	"Delete") deleteMessage break;;
-    	"Find") findMessage break;;
-    	"Exit") exitRoom break;;
-    	*) errorMode break;;
-    	esac
-    	done
+	#1 = send
+	#2 = delete
+	#3 = find 
+	#4 = exit
+	opt=0
+	while [ $opt != 4 ]
+	do
+	echo "1) Send"
+	echo "2) Delete"
+	echo "3) Find"
+	echo "4) Exit"
+	while [ true ]
+	do
+		read -p "Choose mode(1-4): " opt
+		if [ ${opt} == 1 -o ${opt} == 2 -o ${opt} == 3 -o ${opt} == 4 ]; then
+			
+			break
+		fi
+	done
+	
+	
+	case ${opt} in
+	"1") sendMessage break;;
+	"2") deleteMessage break;;
+	"3") findMessage break;;
+	"4") exitRoom break;;
+	*) errorMode break;;
+	esac
+
+	done
 }
 
 room1(){
@@ -81,4 +96,5 @@ room1(){
 
 room1
 bash chatroom_list.sh
+
 
