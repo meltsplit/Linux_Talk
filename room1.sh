@@ -4,6 +4,7 @@ username=$1
 
 updateUI(){
     	clear
+	    echo "<<welcome to room1>>"
     	echo "<<Update UI>>"
     	cat chatLog1.txt
     	echo -e "\n"
@@ -35,8 +36,9 @@ findMessage(){
 exitRoom(){
 	clear
 	updateUI
+	clear
 	echo " <<Exit Room>> "
-	exit 0  # 종료가 안되어서 임시로 해놓음. 
+	exit 0 # 종료가 안되어서 임시로 해놓음.
 }
 errorMode(){
     	clear
@@ -66,9 +68,10 @@ selectMode() {
 }
 
 room1(){
-    	while [ true ] 
+    updateUI
+    selectMode
+    	while [ ${opt} != "Exit" ] 
     	do
-        	echo " << Room1 >> "
         	updateUI
         	selectMode	
     	done
@@ -77,5 +80,5 @@ room1(){
 #code start point 
 
 room1
-
+bash chatroom_list.sh
 
