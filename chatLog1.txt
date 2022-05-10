@@ -1,8 +1,8 @@
-16:00;SeokWoo; hi everyone this is example chat
-16:02;SeokWoo;we will use this txt file for sample
 16:03;SeokWoo;I decided to seperate field by ';' because we have to use ':' at display the time
 16:05;SaeHyeon;agree
 17:07;MinGyu;agree
 18:00;SeungJoon;agree
-18:05;Seokwoo;I think we have add date too. not only time 
+[32m05-10 2:19 오전 ; [34muser1000 [0m ; tried to add date, time
+[32m05-10 4:44 AM ; [34mbreak [0m ; hello
+[32m05-10 4:45 AM ; [34mbreak [0m ; you can delete any messages.
 

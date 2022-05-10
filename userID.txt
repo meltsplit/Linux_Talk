@@ -1,6 +1,5 @@
-melrrtsplit:000415 
-meltsplit:807060
-west9:807060
-west9:807060:
-west9:807060:ddddddddddd
-user1000:aps1000
+meltsplit;807060
+user1000;aps1000
+yeom;9999
+mikekks;1234
+1;1
