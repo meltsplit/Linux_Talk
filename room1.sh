@@ -16,13 +16,14 @@ sendMessage(){
     	read -p "Input Message: " msg
     	export msg
     	. send.sh ${username}
-
 }
 deleteMessage(){
     	clear
     	updateUI
     	echo " <<delete Message>> "
-
+	read -p "Input Message: " msg1
+	export msg1
+	sed -i "/$msg1/d" chatLog1.txt
 }
 findMessage(){
     	clear
@@ -68,7 +69,7 @@ room1(){
     	do
         	echo " << Room1 >> "
         	updateUI
-        	selectMode 
+        	selectMode	
     	done
 }
 
