@@ -13,23 +13,24 @@ sendMessage(){
     	clear
     	updateUI
     	echo " <<Send Message>> " 
-    	read -p "Input Message: " msg
-    	export msg
+    	read -p "Input Message: " msg_s
+    	export msg_s
     	. send.sh ${username}
 }
 deleteMessage(){
     	clear
     	updateUI
     	echo " <<delete Message>> "
-	read -p "Input Message: " msg1
-	export msg1
+	read -p "Input Message: " msg_d
+	export msg_d
 	sed -i "/$msg1/d" chatLog1.txt
 }
 findMessage(){
     	clear
     	updateUI
     	echo " <<Find Messeage>> "
-
+	read -p "Input Message: " msg
+	cat chatLog1.txt | grep -niw --color "$msg" 
 }
 exitRoom(){
 	clear
