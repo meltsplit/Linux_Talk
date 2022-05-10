@@ -32,7 +32,7 @@ checkPassword(){
     echo -e "\n"
     if [ "${password}" = "`grep $username userID.txt | cut -d ":" -f 2`" ]; then
         echo "success"
-		./room1.sh ${username}
+		./chatroom_list.sh ${username}
     else
         echo "fail"
     fi
