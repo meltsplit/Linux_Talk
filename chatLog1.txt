@@ -5,27 +5,4 @@
 [32m05-10 2:19 오전 ; [34muser1000 [0m ; tried to add date, time
 [32m05-10 4:44 AM ; [34mbreak [0m ; hello
 [32m05-10 4:45 AM ; [34mbreak [0m ; you can delete any messages.
-[32m05-10 4:52 PM ; [34mmeltsplit [0m ; werwer
-[32m05-10 4:53 PM ; [34mmeltsplit [0m ; qweqweqwe
-[32m05-10 4:53 PM ; [34mmeltsplit [0m ; qweqweqwe
-[32m05-10 4:53 PM ; [34mmeltsplit [0m ; qweqweqwe
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; qwerqwer
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; qwerqwer
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; qwerqwerqwrtqrt
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; qwerqwerfeqwecqew
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; qwerqwefdscwe
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; dvsrgesdfsefew
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
-[32m05-10 4:56 PM ; [34mmeltsplit [0m ; q
+
