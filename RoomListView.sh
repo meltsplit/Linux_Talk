@@ -21,7 +21,7 @@ RoomListView() {
 	done
 	
 	case ${opt} in
-		"1") bash room1.sh ;; #화면 전환
+		"1") bash room1.sh ${username} ;; #화면 전환
 		"2") echo "not yet" ;; 
 		"3") echo "not yet";; 
 		"4") break;; # RoomListView -> SignInView
