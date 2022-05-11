@@ -7,7 +7,7 @@ updateUI(){
 	echo "<<welcome to room1>>"
     	echo "<<Update UI>>"
 
-    	cat chatLog1.txt
+    	cat chatLog3.txt
     	echo -e "\n"
 }
 
@@ -16,10 +16,9 @@ sendMessage(){
     	updateUI
     	echo " <<Send Message>> " 
     	read -p "Input Message: " msg_s
-    	export msg_s
-
+    	export msg_s	
 	echo "[32m$(date "+%m-%d %l:%M %^p") ; [34m${username} [0m ; ${msg_s}"
-	echo "[32m$(date "+%m-%d%l:%M %^p") ; [34m${username} [0m ; ${msg_s}" >> chatLog1.txt
+	echo "[32m$(date "+%m-%d%l:%M %^p") ; [34m${username} [0m ; ${msg_s}" >> chatLog3.txt
 }
 deleteMessage(){
     	clear
@@ -27,14 +26,14 @@ deleteMessage(){
     	echo " <<delete Message>> "
 	    read -p "Input Message: " msg_d
 	export msg_d
-	sed -i "/$msg_d/d" chatLog1.txt
+	sed -i "/$msg_d/d" chatLog3.txt
 }
 findMessage(){
     	clear
     	updateUI
     	echo " <<Find Message>> "
 	read -p "Input Message: " msg
-	cat chatLog1.txt | grep -niw --color "$msg" 
+	cat chatLog3.txt | grep -niw --color "$msg" 
 }
 exitRoom(){
 	clear
@@ -77,14 +76,14 @@ selectMode() {
 	done
 }
 
-room1(){
+room3(){
     updateUI
     selectMode
 }
 
 #code start point 
 
-room1
+room3
 
 
 
