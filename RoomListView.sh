@@ -7,7 +7,7 @@ RoomListView() {
 	while [ $opt != 4 ]
 	do
 	clear
-        echo "[ Romm List View ]"
+        echo "[ Room List View ]"
 	echo "1) Room1"
 	echo "2) Room2"
 	echo "3) Room3"
