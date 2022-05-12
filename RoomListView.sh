@@ -21,9 +21,9 @@ RoomListView() {
 	done
 	
 	case ${opt} in
-		"1") bash room1.sh ${username} ;; #화면 전환
-		"2") bash room2.sh ${username} ;; 
-		"3") bash room3.sh ${username} ;; 
+		"1") bash Room.sh ${username} ;; #화면 전환
+		"2") bash ${username} ;; 
+		"3") bash ${username} ;; 
 		"4") break;; # RoomListView -> SignInView
 	esac
 
