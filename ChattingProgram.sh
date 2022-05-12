@@ -18,7 +18,7 @@ mainView(){
 	while [ true ]
 	do
 		read -p "Choose menu(1-3): " opt
-		if [ ${opt} == 1 -o ${opt} == 2 -o ${opt} == 3 ]; then
+		if [ "${opt}" = "1" -o "${opt}" = "2" -o "${opt}" = "3" ]; then
 			break
 		fi
 	done
