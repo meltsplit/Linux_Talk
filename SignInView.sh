@@ -22,6 +22,7 @@ LogIn() {
 
     if [ $exist == "true" ]; then
     	checkPassword 
+	break
     else
     	echo -e "\n"
         echo "Invalid ID"
