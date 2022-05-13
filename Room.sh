@@ -18,8 +18,7 @@ sendMessage(){
     	read -p "Input Message: " msg_s
     	export msg_s
 
-	echo "[32m$(date "+%m-%d %l:%M %^p") ; [34m${username} [0m ; ${msg_s}"
-	echo "[32m$(date "+%m-%d%l:%M %^p") ; [34m${username} [0m ; ${msg_s}" >> chatLog1.txt
+	echo "[32m$(date) ; [34m${username} [0m ; ${msg_s}" >> chatLog1.txt
 }
 deleteMessage(){
     	clear
