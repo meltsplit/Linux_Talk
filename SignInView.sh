@@ -14,7 +14,7 @@ LogIn() {
     fi
     
     while read line; do
-        if [ "${username}" = "`echo $line | cut -d ";" -f 1`" ]; then
+        if [ "${username}" == "`echo $line | cut -d ";" -f 1`" ]; then
 		    exist="true" #ID가 존재
               	    break
         fi
@@ -36,13 +36,13 @@ checkPassword(){
     read -s password
     echo -e "\n"
     
-    if [ "${password}" = "quit" ]; then
+    if [ "${password}" == "quit" ]; then
         break
     fi
 
-    if [ "${password}" = "`grep $username userID.txt | cut -d ";" -f 2`" ]; then
+    if [ "${password}" == "`grep $username userID.txt | cut -d ";" -f 2`" ]; then
         #Success
-		bash RoomListView.sh ${username} # 화면 전환 
+		bash RoomListView.sh  # 화면 전환 
     else 
     	sleep 1
     	echo ${password}
