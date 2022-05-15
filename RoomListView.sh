@@ -1,10 +1,11 @@
 #! /bin/bash
 
-username=$1
+
+
 
 RoomListView() {
-	opt=0
-	while [ $opt != 4 ]
+	opt_R=0
+	while [ $opt_R != 4 ]
 	do
 	clear
         echo "[ Room List View ]"
@@ -14,16 +15,16 @@ RoomListView() {
 	echo "4) Exit"
 	while [ true ]
 	do
-		read -p "Choose a room number: " opt
-		if [ ${opt} == 1 -o ${opt} == 2 -o ${opt} == 3 -o ${opt} == 4 ]; then
+		read -p "Choose a room number: " opt_R
+		if [ ${opt_R} == 1 -o ${opt_R} == 2 -o ${opt_R} == 3 -o ${opt_R} == 4 ]; then
 			break
 		fi
 	done
-	
-	case ${opt} in
-		"1") bash Room.sh ${username} ;; #화면 전환
-		"2") bash ${username} ;; 
-		"3") bash ${username} ;; 
+	export opt_R	
+	case ${opt_R} in
+		"1") bash Room.sh ${username} ${opt_R} ;; #화면 전환
+		"2") bash Room.sh ${username} ${opt_R} ;; 
+		"3") bash Room.sh ${username} ${opt_R} ;; 
 		"4") break;; # RoomListView -> SignInView
 	esac
 
