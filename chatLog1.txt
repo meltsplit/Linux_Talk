@@ -1,4 +1,8 @@
-[32mFri 13 May 2022 07:08:25 AM UTC ; [34mmeltsplit [0m ; first message
-[32mFri 13 May 2022 07:09:12 AM UTC ; [34mmeltsplit [0m ; second messageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-[32mFri 13 May 2022 07:10:41 AM UTC ; [34muser1000 [0m ; I'm saehyeon
-[32mFri 13 May 2022 07:14:45 AM UTC ; [34mmeltsplit [0m ; lalala~
+[32mSun 15 May 2022 06:30:13 AM UTC ; [34myeom [0m ; sorry I deleted messages
+[32mSun 15 May 2022 06:41:47 AM UTC ; [34myeom [0m ; hi
+[32mSun 15 May 2022 06:44:21 AM UTC ; [34myeom [0m ; what the
+[32mSun 15 May 2022 06:44:39 AM UTC ; [34myeom [0m ; linux is funny~
+[32mSun 15 May 2022 06:50:29 AM UTC ; [34myeom [0m ; hihi
+[32mSun 15 May 2022 06:59:30 AM UTC ; [34myeom [0m ; room2 and room3 doesn't work
+[32mSun 15 May 2022 07:08:48 AM UTC ; [34myeom [0m ; room2 and room3 are working
+[32mSun 15 May 2022 07:09:21 AM UTC ; [34mee [0m ; hi
