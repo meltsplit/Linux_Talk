@@ -1,6 +1,8 @@
 #! /bin/bash
 
 
+export username="default name"
+
 input_key() {
     read -s -n 3 INPUT
 
@@ -29,7 +31,7 @@ selected_item() {
 	    echo -e "|\t\t\t  \t\t\t|"
     fi
 }
-select_menu() {
+main_view() {
     
     SELECTED=1
 
@@ -37,7 +39,7 @@ select_menu() {
     clear
     do
 	    echo -e "*-----------------------------------------------*"
-	    echo -e "|\t\t <Chatting Program> \t\t|"
+	    echo -e "|\t\t   <Main View>   \t\t|"
 	    echo -e "|\t\t\t  \t\t\t|"
 	    echo -e "|\t\t\t  \t\t\t|"
 	    echo -e "|\t\t\t  \t\t\t|"
@@ -55,7 +57,7 @@ select_menu() {
 	    
 	    if [ -z $input ];
 	    then
-		    echo "select ${items[$SELECTED]}"
+		    echo "select: ${items[$SELECTED]}"
 		    break
 	    fi
 	    if [[ $input = [A ]];
@@ -75,5 +77,22 @@ select_menu() {
     done
 }
 
-items=("test" "1.sign in" "2.sign up" "3.exit    ")
-select_menu "${items[@]}"
+items=("test" "1.sign in" "2.sign up" "3.exit   ")
+main_view "${items[@]}"
+
+selected_items(){
+    case ${items[$SELECTED]} in
+	    "1.sign in") bash SignInView.sh ;; #화면 전환
+	    "2.sign up") bash SignUpView.sh ;; #화면 전환
+	    "3.exit   ") ;;
+	    *) errorMode break;;
+esac
+}
+
+main(){
+    mainView
+    selected_items
+    echo "<<Program End>>"
+}
+
+main
