@@ -1,13 +1,16 @@
 #!/bin/bash
 
-username=$1
 
 updateUI(){
     	clear
 	echo "<<welcome to room1>>"
     	echo "<<Update UI>>"
-
-    	cat chatLog1.txt
+	
+	case ${opt_R} in
+		"1") cat chatLog1.txt ;;
+		"2") cat chatLog2.txt ;;
+		"3") cat chatLog3.txt ;;
+	esac
     	echo -e "\n"
 }
 
@@ -18,7 +21,11 @@ sendMessage(){
     	read -p "Input Message: " msg_s
     	export msg_s
 
-	echo "[32m$(date) ; [34m${username} [0m ; ${msg_s}" >> chatLog1.txt
+	case ${opt_R} in
+		"1") echo "[32m$(date) ; [34m${username} [0m ; ${msg_s}" >> chatLog1.txt ;;
+		"2") echo "[32m$(date) ; [34m${username} [0m ; ${msg_s}" >> chatLog2.txt ;;
+		"3") echo "[32m$(date) ; [34m${username} [0m ; ${msg_s}" >> chatLog3.txt ;;
+	esac
 }
 deleteMessage(){
     	clear
