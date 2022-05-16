@@ -90,14 +90,14 @@ selectMode() {
 	done
 }
 
-room1(){
+roomView(){
     updateUI
     selectMode
 }
 
 #code start point 
 
-room1
+roomView
 
 
 

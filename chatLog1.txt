@@ -1,8 +1,8 @@
-[32mSun 15 May 2022 06:30:13 AM UTC ; [34myeom [0m ; sorry I deleted messages
-[32mSun 15 May 2022 06:41:47 AM UTC ; [34myeom [0m ; hi
-[32mSun 15 May 2022 06:44:21 AM UTC ; [34myeom [0m ; what the
-[32mSun 15 May 2022 06:44:39 AM UTC ; [34myeom [0m ; linux is funny~
-[32mSun 15 May 2022 06:50:29 AM UTC ; [34myeom [0m ; hihi
-[32mSun 15 May 2022 06:59:30 AM UTC ; [34myeom [0m ; room2 and room3 doesn't work
-[32mSun 15 May 2022 07:08:48 AM UTC ; [34myeom [0m ; room2 and room3 are working
-[32mSun 15 May 2022 07:09:21 AM UTC ; [34mee [0m ; hi
+Sun 15 May 2022 06:30:13 AM UTC ; myeom  ; sorry I deleted messages
+Sun 15 May 2022 06:41:47 AM UTC ; myeom  ; hi
+Sun 15 May 2022 06:44:21 AM UTC ; myeom  ; what the
+Sun 15 May 2022 06:44:39 AM UTC ; myeom  ; linux is funny~
+Sun 15 May 2022 06:50:29 AM UTC ; myeom  ; hihi
+Sun 15 May 2022 06:59:30 AM UTC ; myeom  ; room2 and room3 doesn't work
+Sun 15 May 2022 07:08:48 AM UTC ; myeom  ; room2 and room3 are working
+Sun 15 May 2022 07:09:21 AM UTC ; ee ; hi
