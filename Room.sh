@@ -1,12 +1,13 @@
 #!/bin/bash
 
 showChat(){
-	# while read line; do
-	#  구현부 
-    # done < chatLog1.txt
-
+	while read line;
+	do
+		chatDate_full=`echo ${line}|cut -d ';' -f 1`
+		chatDate_HH_mm=`date -d "$chatDate" +%H:%m`
+		echo ${chatDate_HH_mm}
+	done < chatLog1.txt
 }
-
 
 updateUI(){
     	clear
@@ -14,8 +15,8 @@ updateUI(){
 	
 	case ${opt_R} in
 		"1") showChat chatLog1.txt ;;
-		"2") showChat chatLog2.txt ;;
-		"3") showChat chatLog3.txt ;;
+		"2") cat chatLog2.txt ;;
+		"3") cat chatLog3.txt ;;
 	esac
     	echo -e "\n"
 }
