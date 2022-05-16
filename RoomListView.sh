@@ -1,8 +1,5 @@
 #! /bin/bash
 
-
-
-
 RoomListView() {
 	opt_R=0
 	while [ $opt_R != 4 ]
@@ -16,7 +13,7 @@ RoomListView() {
 	while [ true ]
 	do
 		read -p "Choose a room number: " opt_R
-		if [ ${opt_R} == 1 -o ${opt_R} == 2 -o ${opt_R} == 3 -o ${opt_R} == 4 ]; then
+		if [ "${opt_R}" = "1" -o "${opt_R}" = "2" -o "${opt_R}" = "3" -o "${opt_R}" = "4" ]; then
 			break
 		fi
 	done
