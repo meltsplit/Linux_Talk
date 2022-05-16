@@ -1,15 +1,21 @@
 #!/bin/bash
 
+showChat(){
+	# while read line; do
+	#  구현부 
+    # done < chatLog1.txt
+
+}
+
 
 updateUI(){
     	clear
-	echo "<<welcome to room1>>"
-    	echo "<<Update UI>>"
+	echo "<<welcome to room${opt_R}>>"
 	
 	case ${opt_R} in
-		"1") cat chatLog1.txt ;;
-		"2") cat chatLog2.txt ;;
-		"3") cat chatLog3.txt ;;
+		"1") showChat chatLog1.txt ;;
+		"2") showChat chatLog2.txt ;;
+		"3") showChat chatLog3.txt ;;
 	esac
     	echo -e "\n"
 }
@@ -22,9 +28,9 @@ sendMessage(){
     	export msg_s
 
 	case ${opt_R} in
-		"1") echo "[32m$(date) ; [34m${username} [0m ; ${msg_s}" >> chatLog1.txt ;;
-		"2") echo "[32m$(date) ; [34m${username} [0m ; ${msg_s}" >> chatLog2.txt ;;
-		"3") echo "[32m$(date) ; [34m${username} [0m ; ${msg_s}" >> chatLog3.txt ;;
+		"1") echo "$(date) ; ${username} ; ${msg_s}" >> chatLog1.txt ;;
+		"2") echo "$(date) ; ${username} ; ${msg_s}" >> chatLog2.txt ;;
+		"3") echo "$(date) ; ${username} ; ${msg_s}" >> chatLog3.txt ;;
 	esac
 }
 deleteMessage(){
@@ -56,6 +62,7 @@ selectMode() {
 	#2 = delete
 	#3 = find 
 	#4 = exit
+
 	opt=0
 	while [ $opt != 4 ]
 	do
