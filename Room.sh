@@ -1,11 +1,11 @@
 #!/bin/bash
 
-showChat(){
+#showChat(){
 	# %1 = chatLog
-	while read line; do
+	#while read line; do
 		# 구현부!
-    done < $1 
-}
+    #done < $1 
+#}
 
 updateUI(){
     	clear
