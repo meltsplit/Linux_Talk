@@ -38,7 +38,7 @@ sendMessage(){
     	export msg_s
 
 	case ${opt_R} in
-		"1") echo "$(date);${username};${msg_s}" >> chatLog1.txt ;;
+		"1") echo "$(date);${username};${msg_s}" >> chatLog1.txt ;; #not spacing
 		"2") echo "$(date);${username};${msg_s}" >> chatLog2.txt ;;
 		"3") echo "$(date);${username};${msg_s}" >> chatLog3.txt ;;
 	esac
