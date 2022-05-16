@@ -4,8 +4,8 @@ showChat(){
 	while read line;
 	do
 		chatDate_full=`echo ${line}|cut -d ';' -f 1`
-		chatDate_HH_mm=`date -d "$chatDate" +%H:%m`
-		echo ${chatDate_HH_mm}
+		chatDate_HH_mm=`date -d "$chatDate_full" '+%H:%M'`
+		echo ${chatDate_HH_mm}  #
 	done < chatLog1.txt
 }
 
