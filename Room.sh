@@ -14,7 +14,6 @@ showChat(){
 		echo "${chatUser} (${chatDate_HH_mm})"
 		echo "Message : ${chatMessage}"
 		echo ""
-			
 		
 	done < chatLog1.txt
 }
