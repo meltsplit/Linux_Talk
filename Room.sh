@@ -1,5 +1,11 @@
 #!/bin/bash
 
+showChat(){
+	# %1 = chatLog
+	while read line; do
+		# 구현부!
+    done < $1 
+}
 
 updateUI(){
     	clear
@@ -8,6 +14,7 @@ updateUI(){
 	
 	case ${opt_R} in
 		"1") cat chatLog1.txt ;;
+		# "1") showChat chatlog1.txt;;
 		"2") cat chatLog2.txt ;;
 		"3") cat chatLog3.txt ;;
 	esac
@@ -22,9 +29,9 @@ sendMessage(){
     	export msg_s
 
 	case ${opt_R} in
-		"1") echo "[32m$(date) ; [34m${username} [0m ; ${msg_s}" >> chatLog1.txt ;;
-		"2") echo "[32m$(date) ; [34m${username} [0m ; ${msg_s}" >> chatLog2.txt ;;
-		"3") echo "[32m$(date) ; [34m${username} [0m ; ${msg_s}" >> chatLog3.txt ;;
+		"1") echo "$(date) ; ${username} ; ${msg_s}" >> chatLog1.txt ;;
+		"2") echo "$(date) ; ${username} ; ${msg_s}" >> chatLog2.txt ;;
+		"3") echo "$(date) ; ${username} ; ${msg_s}" >> chatLog3.txt ;;
 	esac
 }
 deleteMessage(){
