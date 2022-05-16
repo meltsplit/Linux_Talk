@@ -1,11 +1,21 @@
 #!/bin/bash
 
+declare -i five_Minute=600 #temporary 10minutes 
+
 showChat(){
 	while read line;
 	do
 		chatDate_full=`echo ${line}|cut -d ';' -f 1`
 		chatDate_HH_mm=`date -d "$chatDate_full" '+%H:%M'`
-		echo ${chatDate_HH_mm}  #
+		
+		chatUser=`echo ${line}|cut -d ';' -f 2`
+		chatMessage=`echo ${line}|cut -d ';' -f 3`
+		
+		echo "${chatUser} (${chatDate_HH_mm})"
+		echo "Message : ${chatMessage}"
+		echo ""
+			
+		
 	done < chatLog1.txt
 }
 
@@ -29,18 +39,41 @@ sendMessage(){
     	export msg_s
 
 	case ${opt_R} in
-		"1") echo "$(date) ; ${username} ; ${msg_s}" >> chatLog1.txt ;;
-		"2") echo "$(date) ; ${username} ; ${msg_s}" >> chatLog2.txt ;;
-		"3") echo "$(date) ; ${username} ; ${msg_s}" >> chatLog3.txt ;;
+		"1") echo "$(date);${username};${msg_s}" >> chatLog1.txt ;;
+		"2") echo "$(date);${username};${msg_s}" >> chatLog2.txt ;;
+		"3") echo "$(date);${username};${msg_s}" >> chatLog3.txt ;;
 	esac
 }
-deleteMessage(){
+deleteMessage(){	
+	declare -i count=1
     	clear
-    	updateUI
-    	echo " <<delete Message>> "
-	    read -p "Input Message: " msg_d
-	export msg_d
-	sed -i "/$msg_d/d" chatLog1.txt
+    	echo " <<delete Message>> ${username}"
+	    while read line;
+		do
+		chatUser=`echo ${line}|cut -d ';' -f 2`
+		chatMessage=`echo ${line}|cut -d ';' -f 3`
+		
+		
+		declare -i dateNow_s=`date '+%s'`
+		chatDate_full=`echo ${line}|cut -d ';' -f 1`
+		declare -i chatDate_s=`date -d "$chatDate_full" '+%s'`
+		declare -i timeInterval=`expr ${dateNow_s} - ${chatDate_s}`
+		if [ ${username} = ${chatUser} ]; then
+			if [ ${timeInterval} -le ${five_Minute} ]; then
+				echo "[${count}]"
+				echo "User : ${chatUser}" 
+				echo "Message : ${chatMessage}"
+				echo ""
+			
+				count=`expr $count + 1`
+				sleep 1
+			fi
+		fi
+
+		done < chatLog1.txt
+	echo "deleteMessage End"
+	sleep 5
+		
 }
 findMessage(){
     	clear
@@ -99,6 +132,7 @@ roomView(){
 #code start point 
 
 roomView
+
 
 
 
