@@ -4,19 +4,7 @@ export username="default name"
 
 input_key() {
     read -s -n 3 INPUT
-
-    if [[ ${INPUT} = [A ]];
-    then
-	    echo $INPUT
-    elif [[ ${INPUT} = [B ]];
-    then
-	    echo $INPUT
-    elif [[ ${INPUT} = "" ]];
-    then
-	    echo $INPUT
-    else
-	    return 1
-    fi
+    echo $INPUT
 
 }
 
@@ -56,7 +44,7 @@ main_view() {
 
 	    input=$(input_key)
 
-	    if [[ $input = "" ]];
+	    if [[ -z $input ]];
 	    then
 		    echo "select: ${items[$SELECTED]}"
 		    break
