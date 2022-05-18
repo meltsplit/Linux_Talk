@@ -39,6 +39,8 @@ sendMessage(){
 }
 
 deleteMessageProgram(){
+	
+	
 	declare -i count=1
 	declare -i lineNum=1
 	while read line;
@@ -71,6 +73,11 @@ deleteMessageProgram(){
 
 
 deleteMessage(){	
+	clear
+	echo -e "\n\n\n\n\n\n\n               [ Delete Message ]\n\n"
+	echo "                    Loading..."
+	sleep 1
+	
 	while [ true ]
 	do
 		declare -i count=1
@@ -119,7 +126,11 @@ deleteMessage(){
 
 
 	echo "deleteMessage End"
-	sleep 2
+	
+	clear
+	echo -e "\n\n\n\n\n\n\n               [ Go Room${opt_R} ]\n\n"
+	echo "                    Loading..."
+	sleep 1
 		
 }
 
@@ -127,15 +138,25 @@ deleteMessage(){
 
 
 findMessage(){
+	clear
+	echo -e "\n\n\n\n\n\n\n               [ Find Message ]\n\n"
+	echo "                    Loading..."
+	sleep 1
+
+
     	clear
     	updateUI
     	echo " <<Find Message>> "
 	read -p "Input Message: " msg
 	cat chatLog${opt_R}.txt | grep -niw --color "$msg" 
 }
+
 exitRoom(){
-	echo " <<Exit Room>> "
-	sleep 1
+	clear
+	echo -e "\n\n\n\n\n\n\n               [ Exit Room${opt_R} ]\n\n"
+	echo "                Loading..."
+	
+	sleep 2
 	break
 }
 
