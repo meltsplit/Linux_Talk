@@ -15,18 +15,15 @@ showChat(){
 		echo "Message : ${chatMessage}"
 		echo ""
 		
-	done < chatLog1.txt
+	done < chatLog${opt_R}.txt
 }
 
 updateUI(){
     	clear
 	echo "<<welcome to room${opt_R}>>"
 	
-	case ${opt_R} in
-		"1") showChat chatLog1.txt ;;
-		"2") cat chatLog2.txt ;;
-		"3") cat chatLog3.txt ;;
-	esac
+	showChat chatLog${opt_R}.txt
+		
     	echo -e "\n"
 }
 
@@ -37,16 +34,13 @@ sendMessage(){
     	read -p "Input Message: " msg_s
     	export msg_s
 
-	case ${opt_R} in
-		"1") echo "$(date);${username};${msg_s}" >> chatLog1.txt ;; #not spacing
-		"2") echo "$(date);${username};${msg_s}" >> chatLog2.txt ;;
-		"3") echo "$(date);${username};${msg_s}" >> chatLog3.txt ;;
-	esac
+	echo "$(date);${username};${msg_s}" >> chatLog${opt_R}.txt
+		
 }
 deleteMessage(){	
 	declare -i count=1
     	clear
-    	echo " <<delete Message>> ${username}"
+    	echo " <<delete Message>> "
 	    while read line;
 		do
 		chatUser=`echo ${line}|cut -d ';' -f 2`
@@ -69,7 +63,7 @@ deleteMessage(){
 			fi
 		fi
 
-		done < chatLog1.txt
+		done < chatLog${opt_R}.txt
 	echo "deleteMessage End"
 	sleep 5
 		
@@ -79,7 +73,7 @@ findMessage(){
     	updateUI
     	echo " <<Find Message>> "
 	read -p "Input Message: " msg
-	cat chatLog1.txt | grep -niw --color "$msg" 
+	cat chatLog${opt_R}.txt | grep -niw --color "$msg" 
 }
 exitRoom(){
 	echo " <<Exit Room>> "
@@ -93,10 +87,11 @@ selectMode() {
 	#2 = delete
 	#3 = find 
 	#4 = exit
-    updateUI
+    
     msg_s=0
 	    while [ $msg_s != 4 ]
 	    do
+	    updateUI
 		    echo "Send:[ENTER]"
 		    echo "2) Delete"
 		    echo "3) Find"
@@ -109,14 +104,7 @@ selectMode() {
 			    if [ ${msg_s} == 2 -o ${msg_s} == 3 -o ${msg_s} == 4 ]; then
 				    break
 			    else
-				    export msg_s
-
-				    case ${opt_R} in
-					    "1") echo "$(date);${username};${msg_s}" >> chatLog1.txt ;;
-					    "2") echo "$(date);${username};${msg_s}" >> chatLog2.txt ;;
-					    "3") echo "$(date);${username};${msg_s}" >> chatLog3.txt ;;
-				    esac
-				    
+			    	echo "$(date);${username};${msg_s}" >> chatLog${opt_R}.txt
 			    fi
 		    updateUI
 		    break
@@ -129,6 +117,7 @@ selectMode() {
 	esac
 done
 }
+
 
 roomView(){
     updateUI
