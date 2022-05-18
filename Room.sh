@@ -82,8 +82,6 @@ findMessage(){
 	cat chatLog1.txt | grep -niw --color "$msg" 
 }
 exitRoom(){
-	clear
-	updateUI
 	echo " <<Exit Room>> "
 	sleep 1
 	break
@@ -95,32 +93,41 @@ selectMode() {
 	#2 = delete
 	#3 = find 
 	#4 = exit
+    updateUI
+    msg_s=0
+	    while [ $msg_s != 4 ]
+	    do
+		    echo "Send:[ENTER]"
+		    echo "2) Delete"
+		    echo "3) Find"
+		    echo "4) Exit"
+		    
+		    read -p "send=Enter, Choose mode(2-4): " msg_s
 
-	opt=0
-	while [ $opt != 4 ]
-	do
-	echo "1) Send"
-	echo "2) Delete"
-	echo "3) Find"
-	echo "4) Exit"
-	while [ true ]
-	do
-		read -p "Choose mode(1-4): " opt
-		if [ ${opt} == 1 -o ${opt} == 2 -o ${opt} == 3 -o ${opt} == 4 ]; then
-			break
-		fi
+		    while [ true ]
+		    do
+			    if [ ${msg_s} == 2 -o ${msg_s} == 3 -o ${msg_s} == 4 ]; then
+				    break
+			    else
+				    export msg_s
+
+				    case ${opt_R} in
+					    "1") echo "$(date);${username};${msg_s}" >> chatLog1.txt ;;
+					    "2") echo "$(date);${username};${msg_s}" >> chatLog2.txt ;;
+					    "3") echo "$(date);${username};${msg_s}" >> chatLog3.txt ;;
+				    esac
+				    
+			    fi
+		    updateUI
+		    break
 	done
-	
-	
-	case ${opt} in
-	"1") sendMessage;;
+
+	case ${msg_s} in
 	"2") deleteMessage;;
 	"3") findMessage;;
 	"4") exitRoom;;
 	esac
-	updateUI
-
-	done
+done
 }
 
 roomView(){
