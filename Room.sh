@@ -68,6 +68,8 @@ deleteMessageProgram(){
 
 }
 
+
+
 deleteMessage(){	
 	while [ true ]
 	do
@@ -139,25 +141,24 @@ exitRoom(){
 
 selectMode() {
 
-	#1 = send
-	#2 = delete
-	#3 = find 
-	#4 = exit
+#Delete: /D
+#Find : /F
+#Exit : /E
     
     msg_s=0
-	    while [ $msg_s != 4 ]
+	    while [ $msg_s != "/E" ]
 	    do
 	    updateUI
 		    echo "Send:[ENTER]"
-		    echo "2) Delete"
-		    echo "3) Find"
-		    echo "4) Exit"
+		    echo "Delete : /D"   
+		    echo "Find : /F"     
+		    echo "Exit : /E"     
 		    
-		    read -p "send=Enter, Choose mode(2-4): " msg_s
+		    read -p "send:[Enter], other /D,/F,/E: " msg_s
 
 		    while [ true ]
 		    do
-			    if [ ${msg_s} == 2 -o ${msg_s} == 3 -o ${msg_s} == 4 ]; then
+			    if [ ${msg_s} == "/D" -o ${msg_s} == "/F" -o ${msg_s} == "/E" ]; then
 				    break
 			    else
 			    	echo "$(date);${username};${msg_s}" >> chatLog${opt_R}.txt
@@ -167,9 +168,9 @@ selectMode() {
 	done
 
 	case ${msg_s} in
-	"2") deleteMessage;;
-	"3") findMessage;;
-	"4") exitRoom;;
+	"/D") deleteMessage;;
+	"/F") findMessage;;
+	"/E") exitRoom;;
 	esac
 done
 }
