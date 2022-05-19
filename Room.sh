@@ -1,7 +1,6 @@
 #!/bin/bash
 
-dqeclare -i five_Minute=600 #temporary 10minutes 
-q
+declare -i five_Minute=600 #temporary 10minutes 
 showChat(){
 	while read line;
 	do
