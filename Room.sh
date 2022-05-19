@@ -135,21 +135,44 @@ deleteMessage(){
 }
 
 
-
-
 findMessage(){
 	clear
 	echo -e "\n\n\n\n\n\n\n               [ Find Message ]\n\n"
 	echo "                    Loading..."
 	sleep 1
 
-
-    	clear
-    	updateUI
+	clear
+	updateUI
+	while [ "${msg}" != "/Q" ]
+	do
     	echo " <<Find Message>> "
-	read -p "Input Message: " msg
-	cat chatLog${opt_R}.txt | grep -niw --color "$msg" 
+		read -p "Input message[/Q to quit]: " msg
+		clear
+		GREP_COLOR="46" grep -C 4 -E --color=always ${msg} chatLog${opt_R}.txt > findResult.txt
+		while read line;
+		do
+			if [ "${line}" != "[36m[K--[m[K" ];
+			then
+				chatDate_full=`echo ${line}|cut -d ';' -f 1`
+				chatDate_HH_mm=`date -d "$chatDate_full" '+%H:%M'`
+			
+				chatUser=`echo ${line}|cut -d ';' -f 2`
+				chatMessage=`echo ${line}|cut -d ';' -f 3`
+			
+				echo "${chatUser} (${chatDate_HH_mm})"
+				echo "Message : ${chatMessage}"
+				echo ""
+			else
+				echo -e "\n\n"
+				echo ${line}
+				echo -e "\n\n\n"
+			fi
+		done < findResult.txt
+		echo -e "\n"
+	done
+
 }
+
 
 exitRoom(){
 	clear
@@ -166,26 +189,27 @@ selectMode() {
 #Delete: /D
 #Find : /F
 #Exit : /E
+#Enter : 새로고침
     
 	msg_s="0"
 	while [ $msg_s != "/E" ]
     	do
 	updateUI
-		echo "Send:[ENTER]"
+		echo "Send:[ENTER], 새로고침은 문자 없이 엔터"
 		echo "Delete : /D"   
 		echo "Find : /F"     
-		echo "Exit : /E"     
-		    
-		read -p "send:[Enter], other /D,/F,/E: " msg_s
+		echo -e "Exit : /E\n"     
+		
+		read -p "입력하세요 : " msg_s
 
-		while [ true ]
+		while [ ${msg_s} != "" ]
 		do
 		    	if [ ${msg_s} == "/D" -o ${msg_s} == "/F" -o ${msg_s} == "/E" ]; then
 				break
+
 		    	else
 		    		echo "$(date);${username};${msg_s}" >> chatLog${opt_R}.txt
 		    	fi
-		   	updateUI
 		    	break
 		done
 
@@ -193,7 +217,8 @@ selectMode() {
 			"/D") deleteMessage;;
 			"/F") findMessage;;
 			"/E") exitRoom;;
-			#"")  
+			"") msg_s=1
+			
 		esac
 	done
 }

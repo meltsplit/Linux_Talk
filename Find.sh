@@ -7,5 +7,4 @@ END
 
 room=$1
 read -p "Input message: " msg
-GREP_COLOR="46" grep -E --color=always "|${msg}" ${room}
-# GREP_COLOR="38;2;R;G;B" grep -E --color=always "|${msg}" ${room} 으로 원하는 색 지정 가능; R, G, B에 각각 (0~255) 입력;
+nl -w 1 -s ": " ${room} | GREP_COLOR="48;2;100;120;210" grep -C 4 -E --color=always ${msg}
