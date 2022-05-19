@@ -6,7 +6,7 @@ SignUpView() {
 	    echo -n "Your username? : "
 	    read username
 	    
-	    existing_id=`cat userID.txt | cut -d ";" -f 1 | grep $username`
+	    existing_id=`cat userID.txt | cut -d ";" -f 1 | grep -w "$username"`
 
 		    while [ "$username" = "$existing_id" ]
 			    do
@@ -14,7 +14,7 @@ SignUpView() {
 				    sleep 2
 				    clear
 				    read -p "Please enter another ID : " username 
-				    existing_id=`cat userID.txt | cut -d ";" -f 1 | grep $username`
+				    existing_id=`cat userID.txt | cut -d ";" -f 1 | grep -w "$username"`
 
 
 			    done
