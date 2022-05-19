@@ -1,7 +1,7 @@
 #!/bin/bash
 
-declare -i five_Minute=600 #temporary 10minutes 
-
+dqeclare -i five_Minute=600 #temporary 10minutes 
+q
 showChat(){
 	while read line;
 	do
@@ -143,34 +143,29 @@ findMessage(){
 
 	clear
 	updateUI
-	while [ "${msg}" != "/Q" ]
+while [ true ]
+do
+	read -p "Input message[/Q to quit]: " msg
+	if [ "${msg}" = "/Q" ];
+	then
+		break
+	fi
+	clear
+	cat /dev/null > findText.txt
+	while read line;
 	do
-    	echo " <<Find Message>> "
-		read -p "Input message[/Q to quit]: " msg
-		clear
-		GREP_COLOR="46" grep -C 4 -E --color=always ${msg} chatLog${opt_R}.txt > findResult.txt
-		while read line;
-		do
-			if [ "${line}" != "[36m[K--[m[K" ];
-			then
-				chatDate_full=`echo ${line}|cut -d ';' -f 1`
-				chatDate_HH_mm=`date -d "$chatDate_full" '+%H:%M'`
-			
-				chatUser=`echo ${line}|cut -d ';' -f 2`
-				chatMessage=`echo ${line}|cut -d ';' -f 3`
-			
-				echo "${chatUser} (${chatDate_HH_mm})"
-				echo "Message : ${chatMessage}"
-				echo ""
-			else
-				echo -e "\n\n"
-				echo ${line}
-				echo -e "\n\n\n"
-			fi
-		done < findResult.txt
-		echo -e "\n"
-	done
+		chatDate_full=`echo ${line}|cut -d ';' -f 1`
+		chatDate_HH_mm=`date -d "$chatDate_full" '+%H:%M'`
 
+		chatUser=`echo ${line}|cut -d ';' -f 2`
+		chatMessage=`echo ${line}|cut -d ';' -f 3`
+
+		echo "${chatUser} (${chatDate_HH_mm})" >> findText.txt
+		echo "Message : ${chatMessage}" >> findText.txt
+		echo -e "\n" >> findText.txt
+	done < chatLog${opt_R}.txt
+GREP_COLOR="46" grep -B 13 -A 12 -E --color=auto ${msg} findText.txt
+done
 }
 
 
@@ -190,7 +185,7 @@ selectMode() {
 #Find : /F
 #Exit : /E
 #Enter : 새로고침
-    
+    8
 	msg_s="0"
 	while [ $msg_s != "/E" ]
     	do
