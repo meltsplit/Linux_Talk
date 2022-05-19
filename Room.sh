@@ -27,16 +27,16 @@ updateUI(){
     	echo -e "\n"
 }
 
-sendMessage(){
-    	clear
-    	updateUI
-    	echo " <<Send Message>> " 
-    	read -p "Input Message: " msg_s
-    	export msg_s
-
-	echo "$(date);${username};${msg_s}" >> chatLog${opt_R}.txt
+#sendMessage(){
+    	#clear
+    	#updateUI
+    	#echo " <<Send Message>> " 
+    	#read -p "Input Message: " msg_s
+    	#export msg_s
+	
+	#echo "$(date);${username};${msg_s}" >> chatLog${opt_R}.txt
 		
-}
+#}
 
 deleteMessageProgram(){
 	
@@ -160,40 +160,42 @@ exitRoom(){
 	break
 }
 
+
 selectMode() {
 
 #Delete: /D
 #Find : /F
 #Exit : /E
     
-    msg_s=0
-	    while [ $msg_s != "/E" ]
-	    do
-	    updateUI
-		    echo "Send:[ENTER]"
-		    echo "Delete : /D"   
-		    echo "Find : /F"     
-		    echo "Exit : /E"     
+	msg_s="0"
+	while [ $msg_s != "/E" ]
+    	do
+	updateUI
+		echo "Send:[ENTER]"
+		echo "Delete : /D"   
+		echo "Find : /F"     
+		echo "Exit : /E"     
 		    
-		    read -p "send:[Enter], other /D,/F,/E: " msg_s
+		read -p "send:[Enter], other /D,/F,/E: " msg_s
 
-		    while [ true ]
-		    do
-			    if [ ${msg_s} == "/D" -o ${msg_s} == "/F" -o ${msg_s} == "/E" ]; then
-				    break
-			    else
-			    	echo "$(date);${username};${msg_s}" >> chatLog${opt_R}.txt
-			    fi
-		    updateUI
-		    break
+		while [ true ]
+		do
+		    	if [ ${msg_s} == "/D" -o ${msg_s} == "/F" -o ${msg_s} == "/E" ]; then
+				break
+		    	else
+		    		echo "$(date);${username};${msg_s}" >> chatLog${opt_R}.txt
+		    	fi
+		   	updateUI
+		    	break
+		done
+
+		case ${msg_s} in
+			"/D") deleteMessage;;
+			"/F") findMessage;;
+			"/E") exitRoom;;
+			#"")  
+		esac
 	done
-
-	case ${msg_s} in
-	"/D") deleteMessage;;
-	"/F") findMessage;;
-	"/E") exitRoom;;
-	esac
-done
 }
 
 
