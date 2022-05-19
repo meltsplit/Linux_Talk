@@ -68,20 +68,20 @@ main_view() {
 
 
 selected_items(){
-    case ${items[$SELECTED]} in
+    	case ${items[$SELECTED]} in
 	    "1.sign in") bash SignInView.sh ;; #화면 전환
 	    "2.sign up") bash SignUpView.sh ;; #화면 전환
 	    "3.exit   ") ;;
 	    *) errorMode break;;
-esac
+	esac
 }
 
 main(){
 
-    items=("test" "1.sign in" "2.sign up" "3.exit   ")
-    main_view "${items[@]}"
-    selected_items
-    echo "<<Program End>>"
+    	items=("test" "1.sign in" "2.sign up" "3.exit   ")
+    	main_view "${items[@]}"
+    	selected_items
+	echo "<<Program End>>"
 }
 
 main
