@@ -10,6 +10,9 @@ SignUpView() {
 
     echo "${username};${password}" >> userID.txt
     echo -e "\n"
+
 }
 
+
 SignUpView
+./ChattingProgram.sh
