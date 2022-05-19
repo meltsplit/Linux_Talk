@@ -189,26 +189,27 @@ selectMode() {
 #Delete: /D
 #Find : /F
 #Exit : /E
+#Enter : 새로고침
     
 	msg_s="0"
 	while [ $msg_s != "/E" ]
     	do
 	updateUI
-		echo "Send:[ENTER]"
+		echo "Send:[ENTER], 새로고침은 문자 없이 엔터"
 		echo "Delete : /D"   
 		echo "Find : /F"     
-		echo "Exit : /E"     
-		    
-		read -p "send:[Enter], other /D,/F,/E: " msg_s
+		echo -e "Exit : /E\n"     
+		
+		read -p "입력하세요 : " msg_s
 
-		while [ true ]
+		while [ ${msg_s} != "" ]
 		do
 		    	if [ ${msg_s} == "/D" -o ${msg_s} == "/F" -o ${msg_s} == "/E" ]; then
 				break
+
 		    	else
 		    		echo "$(date);${username};${msg_s}" >> chatLog${opt_R}.txt
 		    	fi
-		   	updateUI
 		    	break
 		done
 
@@ -216,7 +217,8 @@ selectMode() {
 			"/D") deleteMessage;;
 			"/F") findMessage;;
 			"/E") exitRoom;;
-			#"")  
+			"") msg_s=1
+			
 		esac
 	done
 }
