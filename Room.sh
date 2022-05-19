@@ -135,21 +135,44 @@ deleteMessage(){
 }
 
 
-
-
 findMessage(){
 	clear
 	echo -e "\n\n\n\n\n\n\n               [ Find Message ]\n\n"
 	echo "                    Loading..."
 	sleep 1
 
-
-    	clear
-    	updateUI
+	clear
+	updateUI
+	while [ "${msg}" != "/Q" ]
+	do
     	echo " <<Find Message>> "
-	read -p "Input Message: " msg
-	cat chatLog${opt_R}.txt | grep -niw --color "$msg" 
+		read -p "Input message[/Q to quit]: " msg
+		clear
+		GREP_COLOR="46" grep -C 4 -E --color=always ${msg} chatLog${opt_R}.txt > findResult.txt
+		while read line;
+		do
+			if [ "${line}" != "[36m[K--[m[K" ];
+			then
+				chatDate_full=`echo ${line}|cut -d ';' -f 1`
+				chatDate_HH_mm=`date -d "$chatDate_full" '+%H:%M'`
+			
+				chatUser=`echo ${line}|cut -d ';' -f 2`
+				chatMessage=`echo ${line}|cut -d ';' -f 3`
+			
+				echo "${chatUser} (${chatDate_HH_mm})"
+				echo "Message : ${chatMessage}"
+				echo ""
+			else
+				echo -e "\n\n"
+				echo ${line}
+				echo -e "\n\n\n"
+			fi
+		done < findResult.txt
+		echo -e "\n"
+	done
+
 }
+
 
 exitRoom(){
 	clear

@@ -2,7 +2,7 @@ Mon 16 May 2022 08:29:55 AM UTC;ee;first message
 Mon 16 May 2022 08:30:22 AM UTC;ee;different Rule chatLog.txt
 Mon 16 May 2022 08:31:07 AM UTC;meltsplit;1. No space between field ';'
 Mon 16 May 2022 08:31:36 AM UTC;meltsplit;2. No color in chatLog
-Mon 16 May 2022 08:34:36 AM UTC;ee;1-- because we should compare username precisely not confuse by spacing
+Mon 16 May 2022 08:34:36 AM UTC;ee;1-- because we random compare username precisely not confuse by spacing
 Mon 16 May 2022 08:35:58 AM UTC;ee;2-- because we should assign color by who's text it is.
 Mon 16 May 2022 08:36:23 AM UTC;ee;Me -> Green
 Mon 16 May 2022 08:36:32 AM UTC;ee;Other -> Blue
@@ -24,9 +24,10 @@ Wed 18 May 2022 10:58:05 AM UTC;meltsplit;---delete Message---
 Wed 18 May 2022 11:06:51 AM UTC;ee;---delete Message---
 Wed 18 May 2022 11:12:42 AM UTC;ee;/d
 Wed 18 May 2022 11:13:29 AM UTC;ee;---delete Message---
-Wed 18 May 2022 11:13:30 AM UTC;ee;---delete Message---
+Wed 18 May 2022 11:13:30 AM UTC;ee;-- random Message---
 Wed 18 May 2022 11:13:32 AM UTC;ee;---delete Message---
 Wed 18 May 2022 11:19:51 AM UTC;ee;E
 Thu 19 May 2022 05:25:10 AM UTC;bbb;bbb
 Thu 19 May 2022 05:25:11 AM UTC;bbb;
 Thu 19 May 17:52:11 KST 2022;user1000;
+Thu 19 May 18:39:26 KST 2022;user1000;:q
