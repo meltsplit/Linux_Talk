@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -i five_Minute=600 #temporary 10minutes 
+declare -i five_Minute=600 #temporary 10 minutes 
 showChat(){
 	while read line;
 	do
@@ -184,7 +184,6 @@ selectMode() {
 #Find : /F
 #Exit : /E
 #Enter : 새로고침
-    8
 	msg_s="0"
 	while [ $msg_s != "/E" ]
     	do
