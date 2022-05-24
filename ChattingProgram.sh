@@ -78,7 +78,8 @@ selected_item(){
 
 main(){
 
-    	items=("test" "1.sign in" "2.sign up" "3.exit   ")
+    timedatectl set-timezone Asia/Seoul	
+    items=("test" "1.sign in" "2.sign up" "3.exit   ")
 	    SELECTED=0
 	    while [ "${items[$SELECTED]}" != "3.exit   " ]
 		    do
