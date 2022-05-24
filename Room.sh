@@ -217,14 +217,10 @@ selectMode() {
 }
 
 
-roomView(){
-    updateUI
-    selectMode
-}
 
-#code start point 
 
-roomView
+selectMode
+
 
 
 
