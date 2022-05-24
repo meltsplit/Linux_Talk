@@ -161,7 +161,10 @@ done
 
 exitRoom(){
 	loadingView "Exit Room ${roomNum}"
-	break
+}
+
+sendMessage(){
+	echo "$(date);${username};${msg_s}" >> chatLog${roomNum}.txt
 }
 
 roomView() {
@@ -170,8 +173,8 @@ roomView() {
 #Find : /F
 #Exit : /E
 #Enter : 새로고침
-	msg_s="0"
-	while [ $msg_s != "/E" ]
+	msg_s=0
+	while [ true ]
     	do
 		updateUI
 		echo "Send:[ENTER], 새로고침은 문자 없이 엔터"
@@ -181,27 +184,26 @@ roomView() {
 		
 		read -p "입력하세요 : " msg_s
 
-		while [ ${msg_s} != "" ]
-		do
-		    	if [ ${msg_s} == "/D" -o ${msg_s} == "/F" -o ${msg_s} == "/E" ]; then
-				break
-
-		    	else
-		    		echo "$(date);${username};${msg_s}" >> chatLog${roomNum}.txt
-		    	fi
-		    	break
-		done
-
-		case ${msg_s} in
-			"/D") deleteMessage;;
-			"/F") findMessage;;
-			"/E") exitRoom;;
-			"") msg_s=1
-		esac
+		if [[ ${msg_s} == "" ]]; then
+			echo ##Do Nothing
+		else
+			case ${msg_s} in
+				"/D") deleteMessage;;
+				"/F") findMessage;;
+				"/E") exitRoom ;;
+				*) sendMessage;;
+			esac
+		fi
+		
+		if [ ${msg_s} == "/E" ]; then
+			break
+		fi
 	done
 }
 
 roomView
+
+
 
 
 
