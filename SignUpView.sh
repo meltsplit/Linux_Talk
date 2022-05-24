@@ -28,5 +28,12 @@ SignUpView() {
 }
 
 
+SignUp_success() {
+    clear
+
+    echo "Sign Up success!"
+    sleep 2
+
+}
 SignUpView
-./ChattingProgram.sh
+SignUp_success
