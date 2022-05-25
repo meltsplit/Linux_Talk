@@ -4,7 +4,7 @@ declare -i five_Minute=600 #temporary 10 minutes
 loadingView(){
 	clear
 	echo -e "\n\n\n\n\n\n\n             [ $1 ]\n\n"
-	echo "                    Loading..."
+	echo "                Loading..."
 	sleep 1
 	clear
 }
@@ -18,8 +18,12 @@ showChat(){
 		chatUser=`echo ${line}|cut -d ';' -f 2`
 		chatMessage=`echo ${line}|cut -d ';' -f 3`
 		
-		echo "${chatUser} (${chatDate_HH_mm})"
-		echo "Message : ${chatMessage}"
+		if [ "${chatUser}" = "${username}" ]; then
+			echo "[[32m${chatUser}[0m] (${chatDate_HH_mm})"
+		else 
+			echo "[[34m${chatUser}[0m] (${chatDate_HH_mm})"
+		fi
+			echo "${chatMessage}"
 		echo ""
 		
 	done < chatLog${roomNum}.txt
@@ -27,7 +31,7 @@ showChat(){
 
 updateUI(){
     clear
-	echo "<<welcome to room${roomNum}>>"
+	echo -e "<<ROOM ${roomNum}>> \n"
 	
 	showChat chatLog${roomNum}.txt
 		
@@ -160,7 +164,7 @@ done
 
 
 exitRoom(){
-	loadingView "Exit Room ${roomNum}"
+	loadingView "Exit Room${roomNum}"
 }
 
 sendMessage(){
@@ -184,9 +188,7 @@ roomView() {
 		
 		read -p "입력하세요 : " msg_s
 
-		if [[ ${msg_s} == "" ]]; then
-			echo ##Do Nothing
-		else
+		if [[ ${msg_s} != "" ]]; then
 			case ${msg_s} in
 				"/D") deleteMessage;;
 				"/F") findMessage;;
