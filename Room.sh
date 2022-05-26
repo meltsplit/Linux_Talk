@@ -9,31 +9,35 @@ loadingView(){
 	clear
 }
 
-showChat(){
-	while read line;
+showchat(){
+	for (( i=`expr ${1} - 5`;i<=${1};i++ ))
 	do
-		chatDate_full=`echo ${line}|cut -d ';' -f 1`
-		chatDate_HH_mm=`date -d "$chatDate_full" '+%H:%M'`
-		
-		chatUser=`echo ${line}|cut -d ';' -f 2`
-		chatMessage=`echo ${line}|cut -d ';' -f 3`
-		
-		if [ "${chatUser}" = "${username}" ]; then
-			echo "[[32m${chatUser}[0m] (${chatDate_HH_mm})"
-		else 
-			echo "[[34m${chatUser}[0m] (${chatDate_HH_mm})"
-		fi
-			echo "${chatMessage}"
-		echo ""
-		
-	done < chatLog${roomNum}.txt
+	if [ $i -lt 1 ]; then
+		i=1
+	fi
+	line=`sed -n ${i}p < chatLog${roomNum}.txt`
+	
+	chatDate_full=`echo ${line}|cut -d ';' -f 1`
+	chatDate_HH_mm=`date -d "$chatDate_full" '+%H:%M'`
+	
+	chatUser=`echo ${line}|cut -d ';' -f 2`
+	chatMessage=`echo ${line}|cut -d ';' -f 3`
+	
+	if [ "${chatUser}" = "${username}" ]; then
+		echo "[[32m${chatUser}[0m] (${chatDate_HH_mm})"
+	else 
+		echo "[[34m${chatUser}[0m] (${chatDate_HH_mm})"
+	fi
+		echo "${chatMessage}"
+	echo ""
+	done
 }
 
 updateUI(){
     clear
 	echo -e "<<ROOM ${roomNum}>> \n"
 	
-	showChat chatLog${roomNum}.txt
+	showchat 5
 		
     	echo -e "\n"
 }
