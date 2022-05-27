@@ -23,7 +23,7 @@ RoomListView() {
 	if [ "${roomNum}" = "4" ]; then
 		break
 	else
-		bash Room.sh  #RoomListView -> RoomView
+		bash room.sh  #RoomListView -> RoomView
 	fi
 
 	done
