@@ -3,36 +3,52 @@
 ip=$1
 
 declare -i five_Minute=600 #temporary 10 minutes 
-showChat(){
-	while read line;
+loadingView(){
+	clear
+	echo -e "\n\n\n\n\n\n\n             [ $1 ]\n\n"
+	echo "                Loading..."
+	sleep 1
+	clear
+}
+
+showchat(){
+	for (( i=`expr ${1} - 5`;i<=${1};i++ ))
 	do
-		chatDate_full=`echo ${line}|cut -d ';' -f 1`
-		chatDate_HH_mm=`date -d "$chatDate_full" '+%H:%M'`
-		
-		chatUser=`echo ${line}|cut -d ';' -f 2`
-		chatMessage=`echo ${line}|cut -d ';' -f 3`
-		
-		echo "${chatUser} (${chatDate_HH_mm})"
-		echo "Message : ${chatMessage}"
-		echo ""
-		
-	done < chatLog${opt_R}.txt
+	if [ $i -lt 1 ]; then
+		i=1
+	fi
+	line=`sed -n ${i}p < chatLog${roomNum}.txt`
+	
+	chatDate_full=`echo ${line}|cut -d ';' -f 1`
+	chatDate_HH_mm=`date -d "$chatDate_full" '+%H:%M'`
+	
+	chatUser=`echo ${line}|cut -d ';' -f 2`
+	chatMessage=`echo ${line}|cut -d ';' -f 3`
+	
+	if [ "${chatUser}" = "${username}" ]; then
+		echo "[[32m${chatUser}[0m] (${chatDate_HH_mm})"
+	else 
+		echo "[[34m${chatUser}[0m] (${chatDate_HH_mm})"
+	fi
+		echo "${chatMessage}"
+	echo ""
+	done
 }
 
 updateUI(){
-    	clear
-	echo "<<welcome to room${opt_R}>>"
+    clear
+	echo -e "<<ROOM ${roomNum}>> \n"
 	
-	showChat chatLog${opt_R}.txt
+	showchat 5
 		
     	echo -e "\n"
 }
 
 deleteMessageProgram(){
 	
-	
-	declare -i count=1
+	declare -i msgNum=1
 	declare -i lineNum=1
+
 	while read line;
 	do
 
@@ -46,31 +62,29 @@ deleteMessageProgram(){
 
 		if [ ${username} = ${chatUser} ]; then
 			if [ ${timeInterval} -le ${five_Minute} ]; then
-				if [ ${count} = ${d_opt} ]; then
-					sed -i "${lineNum}s/${chatMessage}/---delete Message---/g" chatLog${opt_R}.txt	
+				if [ ${msgNum} = ${deleteNum} ]; then
+					sed -i "${lineNum}s/${chatMessage}/---delete Message---/g" chatLog${roomNum}.txt	
 					
 				fi
-				count=`expr $count + 1`
+				msgNum=`expr $msgNum + 1`
 			fi
 		fi
 
 		lineNum=`expr $lineNum + 1`
 
-		done < chatLog${opt_R}.txt
+		done < chatLog${roomNum}.txt
 
 }
 
 
 
 deleteMessage(){	
-	clear
-	echo -e "\n\n\n\n\n\n\n               [ Delete Message ]\n\n"
-	echo "                    Loading..."
-	sleep 1
+	
+	loadingView "Delete Message"
 	
 	while [ true ]
 	do
-		declare -i count=1
+		declare -i msgNum=1
     		clear
     		echo " <<delete Message>> "
 	  	while read line;
@@ -83,33 +97,34 @@ deleteMessage(){
 			chatDate_full=`echo ${line}|cut -d ';' -f 1`
 			declare -i chatDate_s=`date -d "$chatDate_full" '+%s'`
 			declare -i timeInterval=`expr ${dateNow_s} - ${chatDate_s}`
+
 			if [ "${username}" = "${chatUser}" ]; then
 				if [ ${timeInterval} -le ${five_Minute} ]; then
-					echo "[${count}]"
+					echo "[${msgNum}]"
 					echo "User : ${chatUser}" 
 					echo "Message : ${chatMessage}"
 					echo ""
 			
-					count=`expr $count + 1`
+					msgNum=`expr $msgNum + 1`
 				fi
 			fi
-		done < chatLog${opt_R}.txt
+		done < chatLog${roomNum}.txt
 		
 		echo "Select Number of Message which want to delete"
 		
-		d_opt=0
-		while [ "${d_opt}" != "q" ]
+		deleteNum=0
+		while [ "${deleteNum}" != "q" ]
 		do
-			read -p "Input Number(quit= 'q'): " d_opt
+			read -p "Input Number(quit= 'q'): " deleteNum
 		
 	
-			if [ ${d_opt} -le ${count} -a ${d_opt} -ge 1 ]; then #IF INPUT 'Q' WARNING HERE	
-				deleteMessageProgram ${d_opt}
+			if [ ${deleteNum} -le ${msgNum} -a ${deleteNum} -ge 1 ]; then #정확한 값 입력시에만 실행되게
+				deleteMessageProgram ${deleteNum}
 				break;
 			fi
 		done
 		
-		if [ "${d_opt}" = "q" ]; then
+		if [ "${deleteNum}" = "q" ]; then
 			break;
 		fi
 	done
@@ -117,19 +132,14 @@ deleteMessage(){
 
 	echo "deleteMessage End"
 	
-	clear
-	echo -e "\n\n\n\n\n\n\n               [ Go Room${opt_R} ]\n\n"
-	echo "                    Loading..."
-	sleep 1
+	loadingView "Go Room ${roomNum}"
 		
 }
 
 
 findMessage(){
-	clear
-	echo -e "\n\n\n\n\n\n\n               [ Find Message ]\n\n"
-	echo "                    Loading..."
-	sleep 1
+
+	loadingView "Find Message"
 
 	clear
 	updateUI
@@ -153,32 +163,31 @@ do
 		echo "${chatUser} (${chatDate_HH_mm})" >> findText.txt
 		echo "Message : ${chatMessage}" >> findText.txt
 		echo -e "\n" >> findText.txt
-	done < chatLog${opt_R}.txt
+	done < chatLog${roomNum}.txt
 GREP_COLOR="46" grep -B 13 -A 12 -E --color=auto ${msg} findText.txt
 done
 }
 
 
 exitRoom(){
-	clear
-	echo -e "\n\n\n\n\n\n\n               [ Exit Room${opt_R} ]\n\n"
-	echo "                Loading..."
-	
-	sleep 2
-	break
+	loadingView "Exit Room${roomNum}"
 }
 
+sendMessage(){
+	#echo "$(date);${username};${msg_s}" >> chatLog${roomNum}.txt
+	bash msgsend.sh   # send msg to server
+}
 
-selectMode() {
+roomView() {
 
 #Delete: /D
 #Find : /F
 #Exit : /E
 #Enter : 새로고침
-	msg_s="0"
-	while [ $msg_s != "/E" ]
+	msg_s=0
+	while [ true ]
     	do
-	updateUI
+		updateUI
 		echo "Send:[ENTER], 새로고침은 문자 없이 엔터"
 		echo "Delete : /D"   
 		echo "Find : /F"     
@@ -186,36 +195,25 @@ selectMode() {
 		
 		read -p "입력하세요 : " msg_s
 
-		while [ ${msg_s} != "" ]
-		do
-		    	if [ ${msg_s} == "/D" -o ${msg_s} == "/F" -o ${msg_s} == "/E" ]; then
-				break
-
-		    	else
-		    		echo "$(date);${username};${msg_s}" >> chatLog${opt_R}.txt
-		    	fi
-		    	break
-		done
-
-		case ${msg_s} in
-			"/D") deleteMessage;;
-			"/F") findMessage;;
-			"/E") exitRoom;;
-			"") msg_s=1
-			
-		esac
+		if [[ ${msg_s} != "" ]]; then
+			case ${msg_s} in
+				"/D") deleteMessage;;
+				"/F") findMessage;;
+				"/E") exitRoom ;;
+				*) sendMessage;;
+			esac
+		fi
+		
+		if [ ${msg_s} == "/E" ]; then
+			break
+		fi
 	done
 }
 
-
-roomView(){
-    updateUI
-    selectMode
-}
-
-#code start point 
-
 roomView
+
+
+
 
 
 

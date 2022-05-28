@@ -6,7 +6,7 @@ sendChat() {
 	while true
 	do
 		read -p "msg: " msg
-		echo "${msg}" | nc -q 0 ${ip} ${port}
+		echo "$(date);${username};${msg}" | nc -q 0 ${ip} ${port}
 	done
 }
 

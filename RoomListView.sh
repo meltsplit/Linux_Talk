@@ -3,9 +3,9 @@
 ip=$1
 
 RoomListView() {
-	export opt_R=0
+	export roomNum=0
 	
-	while [ $opt_R != 4 ]
+	while [ $roomNum != 4 ]
 	do
 	clear
         echo "[ Room List View ]"
@@ -16,16 +16,20 @@ RoomListView() {
 	
 	while [ true ]
 	do
-		read -p "Choose a room number: " opt_R
-		if [ "${opt_R}" = "1" -o "${opt_R}" = "2" -o "${opt_R}" = "3" -o "${opt_R}" = "4" ]; then
+		read -p "Choose a room number: " roomNum
+		if [ "${roomNum}" = "1" -o "${roomNum}" = "2" -o "${roomNum}" = "3" -o "${roomNum}" = "4" ]; then
 			break
 		fi
 	done
 	
-	if [ "${opt_R}" = "4" ]; then
+	if [ "${roomNum}" = "4" ]; then
 		break
 	else
+<<<<<<< HEAD
 		bash Room.sh ${ip}  #RoomListView -> RoomView
+=======
+		bash room.sh  #RoomListView -> RoomView
+>>>>>>> df64381b4a9f296ab023e8f51ade58176c3b8926
 	fi
 
 	done
