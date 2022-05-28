@@ -1,5 +1,6 @@
 declare exist="false"
-ip=`ifconfig | grep -A 1 -E "enp" | tr -s ' ' | grep inet | cut -d ' ' -f 3`
+
+ip=`ip route get 8.8.8.8 | cut -d ' ' -f 7`
 
 LogIn() {
     while [ true ]
