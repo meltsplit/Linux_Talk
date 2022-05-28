@@ -1,40 +1,109 @@
 #! /bin/bash
 
-:<< EX
-nc를 통해 클라이언트 에게서 신호를 받으면 그 신호를 토대로 명령을 수행, 받은 신호는 inopt.txt에 추가하며 수행이 완료된 명령은 "executed"로 치환되어서 수행하였음을 표시
-입력을 한 번밖에 받지 않는 문제가 있음. 해결 시급
-EX
-
 ip=$1
-#not actual var
 port=$2
+#not actual var
 roomNum=1
-
-nc -lkd 1234 >> inopt.txt &
-nc -lkd 1400 >> inopt.txt &
-
-while true
-do
-	input=`tail -n 1 inopt.txt 2>/dev/null`
-	if [ "${input}" = "\"executed\"" -o -z "${input}" ];
-	then
-		echo "Idle state"
-	else
-		sed '$s/.*/"executed"/' -i inopt.txt
-		echo "${input}"
-	fi
-	sleep 0.4
-	echo $RANDOM
-done
 
 requestOp() {
 
+	# 입력은 [ ip port 수행명령 전달대상 ] 의 형식으로 설정
+
+	read input <<< `timeout 2s nc -l 1234`
 	ip=`echo ${input} | cut -d ' ' -f 1`
 	port=`echo ${input} | cut -d ' ' -f 2`
 	opt=`echo ${input} | cut -d ' ' -f 3`
 	pas=`echo ${input} | cut -d ' ' -f 4`
 
 }
+
+deleteMessageProgram(){
+	
+	declare -i msgNum=1
+	declare -i lineNum=1
+
+	while read line;
+	do
+
+		chatUser=`echo ${line}|cut -d ';' -f 2`
+		chatMessage=`echo ${line}|cut -d ';' -f 3`
+				
+		declare -i dateNow_s=`date '+%s'`
+		chatDate_full=`echo ${line}|cut -d ';' -f 1`
+		declare -i chatDate_s=`date -d "$chatDate_full" '+%s'`
+		declare -i timeInterval=`expr ${dateNow_s} - ${chatDate_s}`
+
+		if [ ${username} = ${chatUser} ]; then
+			if [ ${timeInterval} -le ${five_Minute} ]; then
+				if [ ${msgNum} = ${deleteNum} ]; then
+					sed -i "${lineNum}s/${chatMessage}/---delete Message---/g" chatLog${roomNum}.txt	
+					
+				fi
+				msgNum=`expr $msgNum + 1`
+			fi
+		fi
+
+		lineNum=`expr $lineNum + 1`
+
+		done < chatLog${roomNum}.txt
+
+}
+
+
+
+deleteMessage(){	
+	
+	loadingView "Delete Message"
+	
+	while [ true ]
+	do
+		declare -i msgNum=1
+    		clear
+    		echo " <<delete Message>> "
+	  	while read line;
+		do
+			chatUser=`echo ${line}|cut -d ';' -f 2`
+			chatMessage=`echo ${line}|cut -d ';' -f 3`
+		
+		
+			declare -i dateNow_s=`date '+%s'`
+			chatDate_full=`echo ${line}|cut -d ';' -f 1`
+			declare -i chatDate_s=`date -d "$chatDate_full" '+%s'`
+			declare -i timeInterval=`expr ${dateNow_s} - ${chatDate_s}`
+
+			if [ "${username}" = "${chatUser}" ]; then
+				if [ ${timeInterval} -le ${five_Minute} ]; then
+					echo "[${msgNum}]"
+					echo "User : ${chatUser}" 
+					echo "Message : ${chatMessage}"
+					echo ""
+			
+					msgNum=`expr $msgNum + 1`
+				fi
+			fi
+		done < chatLog${roomNum}.txt
+		
+		echo "Select Number of Message which want to delete"
+		
+		deleteNum=0
+		while [ "${deleteNum}" != "q" ]
+		do
+			read -p "Input Number(quit= 'q'): " deleteNum
+		
+	
+			if [ ${deleteNum} -le ${msgNum} -a ${deleteNum} -ge 1 ]; then #정확한 값 입력시에만 실행되게
+				deleteMessageProgram ${deleteNum}
+				break;
+			fi
+		done
+		
+		if [ "${deleteNum}" = "q" ]; then
+			break;
+		fi
+	done
+
+
+	echo "deleteMessage End"
 
 while [ true ]
 do
@@ -49,7 +118,7 @@ do
 	then
 		break
 	else
-		nc -w4 -N ${ip} ${port} < chatLog${roomNum}.txt
+		nc -w2 -N ${ip} ${port} < chatLog${roomNum}.txt
 	fi
 done
 
