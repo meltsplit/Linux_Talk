@@ -1,3 +1,5 @@
+#! /bin/bash
+
 ip=$1
 port=$2
 
