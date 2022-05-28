@@ -8,7 +8,7 @@ input_key() {
 
 }
 
-selected_item() {
+items() {
     if [ $1 = $2 ];
     then
 	    echo -e "|\t\t     \033[01;43m${items[i]}\033[0m    \t\t|"
@@ -36,7 +36,7 @@ main_view() {
 
 	    for (( i=1 ; i<=3 ; i++ ))
 	    do
-		    selected_item "$i" "$SELECTED"
+		    items "$i" "$SELECTED"
 	    done
 	    echo -e "|\t\t\t  \t\t\t|"
 	    echo -e "*-----------------------------------------------*"
@@ -67,7 +67,7 @@ main_view() {
 }
 
 
-selected_items(){
+selected_item(){
     	case ${items[$SELECTED]} in
 	    "1.sign in") bash SignInView.sh ;; #화면 전환
 	    "2.sign up") bash SignUpView.sh ;; #화면 전환
@@ -78,9 +78,17 @@ selected_items(){
 
 main(){
 
-    	items=("test" "1.sign in" "2.sign up" "3.exit   ")
-    	main_view "${items[@]}"
-    	selected_items
+    timedatectl set-timezone Asia/Seoul	
+    items=("test" "1.sign in" "2.sign up" "3.exit   ")
+	    SELECTED=0
+	    while [ "${items[$SELECTED]}" != "3.exit   " ]
+		    do
+
+		    main_view "${items[@]}"
+		    selected_item
+		
+		    done
+
 	echo "<<Program End>>"
 }
 
