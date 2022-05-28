@@ -5,7 +5,37 @@ sendMessage(){
 	tput cnorm
 	read msg
 
-	echo "$(date);${username};${msg};;;" >> chatLog${roomNum}.txt 
+	echo "$(date);${username};${msg};|" >> chatLog${roomNum}.txt 
+}
+
+deleteMessage(){
+    tput cup 28 13
+	tput cnorm
+	declare -i lineNum=1
+
+	read d
+		
+  	while read line;
+	do
+
+		time=`echo ${line}|cut -d ';' -f 1`
+		user=`echo ${line}|cut -d ';' -f 2`
+		message=`echo ${line}|cut -d ';' -f 3`
+
+		delNum=`echo ${line}|cut -d '|' -f 2`
+
+		if [ "${d}" = "${delNum}" ]; then
+                sed -i "${lineNum}s/.*/${time};${user};---(Delete Message)---;|/g" chatLog${roomNum}.txt
+		fi
+
+		lineNum=`expr $lineNum + 1`
+
+	done < chatLog${roomNum}.txt
+		
+
+}
+deleteUnsetting(){
+    sed -i 's/|.*/|/g' chatLog${roomNum}.txt
 }
 
 
@@ -13,7 +43,7 @@ sendMessage(){
 deleteSetting(){	
 	declare -i delNum=1
 	declare -i lineNum=1
-		
+	deleteUnsetting
   	while read line;
 	do
 		time=`echo ${line}|cut -d ';' -f 1`
@@ -26,14 +56,15 @@ deleteSetting(){
 
 		if [ "${username}" = "${user}" ]; then
 			if [ ${timeInterval} -le ${ten_Minute} ]; then
-				sed -i "${lineNum}s/.*/${time};${user};${message};deleteable;$delNum/g" chatLog${roomNum}.txt
+				if [ "${message}" != "---(Delete Message)---" ]; then
+				sed -i "${lineNum}s/.*/${time};${user};${message};|$delNum/g" chatLog${roomNum}.txt
 				delNum=`expr $delNum + 1`
+				fi
 			fi
 		fi
 		lineNum=`expr $lineNum + 1`
 	done < chatLog${roomNum}.txt
-		
-
+	
 }
 
 showChat(){
@@ -67,8 +98,8 @@ showChat(){
 	time=`echo ${line}|cut -d ';' -f 1`
 	user=`echo ${line}|cut -d ';' -f 2`
 	message=`echo ${line}|cut -d ';' -f 3`
-	deleteable=`echo ${line}|cut -d ';' -f 4`
-	deleteNum=`echo ${line}|cut -d ';' -f 5`
+
+	deleteNum=`echo ${line}|cut -d '|' -f 2`
 	
 	time_HH_MM=`date -d "$time" '+%H:%M'`
 	time_Date=`date -d "$time" '+%m월 %d일'`
@@ -93,9 +124,9 @@ showChat(){
 		echo " "
 	
 	elif [ "${user}" = "${username}" ]; then
-		if [ "${mode}" = "Delete" -a "${deleteable}" = "deleteable" ]; then
+		if [ "${mode}" = "Delete" -a "${deleteNum}" != "" ]; then
 			tput cup `expr ${y_chat} + 1` `expr 44 - ${userLength}`
-			echo "[${deleteNum}] (${time_HH_MM}) [[32m${user}[0m] "
+			echo "[31m[${deleteNum}][0m (${time_HH_MM}) [[32m${user}[0m] "
 		else
 			tput cup `expr ${y_chat} + 1` `expr 48 - ${userLength}`
 			echo "(${time_HH_MM}) [[32m${user}[0m] "
@@ -189,7 +220,7 @@ echo "|                                                           |"
 echo "|-----------------------------------------------------------|" 
 echo "|                          [Exit]                           |"  #find 26,9 delete 26,23 26,42
 echo "|-----------------------------------------------------------|"
-echo "|   [Send]                                                  |"  #28,2
+echo "|   [Delete]                                                |"  #28,2
 echo "|                                                           |"
 echo "*-----------------------------------------------------------*"
 
@@ -241,7 +272,7 @@ do
 		 if [ $x = 9 ]; then #FIND
 		 	continue
 		 elif [ $x = 23  ]; then #DELETE
-		 	delete_Select
+		 	Delete_Select
 		 elif [ $x = 42 ]; then #EXIT
 		 	break
 		 fi
@@ -307,7 +338,7 @@ done
 }
 
 
-delete_Select(){
+Delete_Select(){
 	x=2
 	y=28
 	mode=Delete
@@ -326,8 +357,8 @@ do
 	in
 	"28")
 	if [[ -z ${KEY} ]]; then  
-		sleep 2 
-		
+		deleteMessage 
+		deleteSetting
 	elif [ "${KEY}" = "[A" ]; then  #up
 		echo " "
 		x=25
@@ -373,9 +404,13 @@ do
 	
 	esac
 done
+
 x=2
 y=28
 tput cup $y $x
+
+deleteUnsetting
+
 mode=Default
 }
 

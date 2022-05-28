@@ -1,16 +1,4 @@
-Sat 28 May 2022 01:03:05 AM KST;meltsplit;aaa;;;
-Sat 28 May 2022 01:03:09 AM KST;meltsplit;bbb;;;
-Sat 28 May 2022 01:03:10 AM KST;meltsplit;ccc;;;
-Sat 28 May 2022 01:03:11 AM KST;meltsplit;ddd;;;
-Sat 28 May 2022 01:03:12 AM KST;meltsplit;eee;;;
-Sat 28 May 2022 01:03:14 AM KST;meltsplit;hhh;;;
-Sat 28 May 2022 01:03:15 AM KST;meltsplit;iii;;;
-Sat 28 May 2022 01:03:16 AM KST;meltsplit;jjj;;;
-Sat 28 May 2022 01:03:18 AM KST;meltsplit;kkk;;;
-Sat 28 May 2022 01:03:26 AM KST;meltsplit;give me A+;;;
-Sat 28 May 2022 04:42:34 PM KST;ee;asdfasdf;;deleteable;1
-Sat 28 May 2022 04:42:35 PM KST;ee;asdfqwer;;deleteable;2
-Sat 28 May 2022 04:43:21 PM KST;ee;asdkfaskdf;;deleteable;3
-Sat 28 May 2022 04:43:29 PM KST;ee;how are you;;deleteable;4
-Sat 28 May 2022 04:56:21 PM KST;ee;hi heello;;deleteable;1
-Sat 28 May 2022 05:19:44 PM KST;ee;hihi;deleteable;1
+Sat 28 May 2022 11:24:53 PM KST;ee;---(Delete Message)---;|
+Sat 28 May 2022 11:24:58 PM KST;ee;---(Delete Message)---;|
+Sat 28 May 2022 11:26:29 PM KST;ee;---(Delete Message)---;|
+Sat 28 May 2022 11:28:18 PM KST;ee;hi;|
