@@ -1,4 +1,5 @@
 declare -i ten_Minute=600
+GREP_COLOR="46"
 
 sendMessage(){
 	tput cup 28 12
@@ -74,6 +75,11 @@ showChat(){
 	tput cup $y_chat $x_chat
 	prev_Date=0
 	count=1
+
+    if [ "${FINDYES}" != "FINDYES" ]; then
+        findMsg="|||"
+    fi
+
 	if [ $lastLine -lt 7 ];then
 		lastLine=7
 	elif [ $lastLine -gt $chatCount ]; then
@@ -132,20 +138,43 @@ showChat(){
 			echo "(${time_HH_MM}) [[32m${user}[0m] "
 		fi
 		tput cup `expr ${y_chat} + 2` `expr 58 - ${chatLength}`	
-		echo "${message}"
 	else 
 		tput cup `expr ${y_chat} + 1` $x_chat
 		echo "[[34m${user}[0m] (${time_HH_MM})"
 		
 		tput cup `expr ${y_chat} + 2` $x_chat	
-		echo "${message}"
 	fi
-	
+        
+    if [ "${mode}" = "Find" -a "`echo "${message}" | grep ${findMsg}`" != ""  ]; then
+        echo "${message}" | grep --color ${findMsg}
+        tput cup `expr ${y_chat} + 2` 60
+        echo "|"
+    else
+        echo "${message}"
+	fi
 	
 	y_chat=`expr ${y_chat} + 3`
 	
 	count=`expr ${count} + 1`
 	done
+}
+
+findMessage(){
+    tput cup 28 13
+	tput cnorm
+	declare -i lineNum=1
+
+	read findMsg
+
+    chatLog${roomNum}.txt | cut -d ';' -f 3 | grep -c ${findMsg}
+    findArray=( `cat chatLog${roomNum}.txt | cut -d ';' -f 3 | grep -n  ${findMsg}| cut -d ':' -f 1` )
+    findCount=${#findArray[*]}
+    findNum=${findCount}
+
+    if [ $findCount -gt 0 ]; then
+        FINDYES=FINDYES
+    fi
+
 }
 
 DefaultView(){
@@ -229,6 +258,48 @@ echo "Delete Mode"
 
 }
 
+
+FindView(){
+clear
+tput cup 0 0
+echo "*-----------------------------------------------------------*" #0
+echo "|                                                           |"
+echo "|-----------------------------------------------------------|" #2
+echo "|                                                           |" #3
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|-----------------------------------------------------------|" 
+echo "|          [Prev]          [Next]          [Exit]           |"  #find 26,9 delete 26,23 26,42
+echo "|-----------------------------------------------------------|"
+echo "|   [Find]                                                  |"  #28,2
+echo "|                                                           |"
+echo "*-----------------------------------------------------------*"
+
+tput cup 1 23
+echo "Find Mode" 
+
+}
+
+
 selectMark(){
 	tput civis
 	tput cup $y $x
@@ -270,7 +341,7 @@ do
 	"26") 	
 	if [[ -z ${KEY} ]]; then  
 		 if [ $x = 9 ]; then #FIND
-		 	continue
+		 	Find_Select
 		 elif [ $x = 23  ]; then #DELETE
 		 	Delete_Select
 		 elif [ $x = 42 ]; then #EXIT
@@ -413,6 +484,133 @@ deleteUnsetting
 
 mode=Default
 }
+
+
+Find_Select(){
+	x=2
+	y=28
+
+	FindView 
+    mode=Find
+    FINDYES=false
+	chatCount=`wc -l<chatLog${roomNum}.txt`
+	lastLine=$chatCount
+
+    findCount=0
+    findNum=0
+while :
+do 
+	showChat ${lastLine}
+	selectMark
+
+	tput cup 28 63
+    echo "${findNum}/${findCount}"
+
+	read -sn 3 KEY
+	case "$y"
+	in
+	"28")
+	if [[ -z ${KEY} ]]; then  
+		findMessage
+        if [ "$FINDYES"="FINDYES" ]; then
+		    lastLine=`expr ${findArray[findNum-1]} + 3`
+        fi
+	elif [ "${KEY}" = "[A" ]; then  #up
+		echo " "
+		x=9
+		y=26	
+		selectMark
+	else
+		continue
+	fi	
+	;;
+	
+	"26") 	
+	if [[ -z ${KEY} ]]; then  
+		 if [ $x = 9 ]; then #prev
+            if [ $findNum -gt 1 ]; then
+		 	 findNum=`expr $findNum - 1`
+             lastLine=`expr ${findArray[findNum-1]} + 3`
+             else 
+                continue
+            fi
+		 elif [ $x = 23  ]; then #next
+		 	if [ $findNum -lt ${findCount} ]; then
+		 	        findNum=`expr $findNum + 1`
+             		 lastLine=`expr ${findArray[findNum-1]} + 3`
+             else 
+                continue
+            fi
+		 elif [ $x = 42 ]; then #EXIT
+		 	break
+		 fi
+	elif [ "${KEY}" = "[A" ]; then  #up
+		echo " "
+		x=50
+		y=24
+		selectMark
+	elif [ "${KEY}" = "[B" ]; then #down
+		echo " "
+		x=2
+		y=28 
+		selectMark
+	elif [ "${KEY}" = "[C" ]; then #right
+		if [ $x = 9 ]; then
+			echo " "
+			x=23
+			selectMark
+		elif [ $x = 23 ]; then
+			echo " "
+			x=42
+			selectMark
+		elif [ $x = 42 ]; then
+			continue
+		fi
+	elif [ "${KEY}" = "[D" ]; then #left
+		if [ $x = 9 ]; then
+			continue
+		elif [ $x = 23 ]; then
+			echo " " 
+			x=9
+			selectMark
+		elif [ $x = 42 ]; then
+			echo " "
+			x=23
+			selectMark
+		fi
+	else
+		continue	
+	fi
+	;;
+	
+	"24") 
+	if [ "${KEY}" = "[A" ]; then  #up
+		lastLine=`expr $lastLine - 6`
+	elif [ "${KEY}" = "[B" ]; then #down
+		if [ $lastLine -eq $chatCount ]; then
+			echo " "
+			x=9
+			y=26
+			selectMark
+		else
+			lastLine=`expr $lastLine + 6`
+		fi
+			
+	else
+		continue	
+	fi
+	;;
+	
+	esac
+done
+
+x=2
+y=28
+tput cup $y $x
+FINDYES=false
+mode=Default
+}
+
 
 
 Room_Select
