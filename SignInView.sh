@@ -1,4 +1,5 @@
 declare exist="false"
+ip=`ifconfig | grep -A 1 -E "enp" | tr -s ' ' | grep inet | cut -d ' ' -f 3`
 
 LogIn() {
     while [ true ]
@@ -42,7 +43,7 @@ checkPassword(){
 
     if [ "${password}" == "`grep $username userID.txt | cut -d ";" -f 2`" ]; then
         #Success
-		bash RoomListView.sh  # 화면 전환 
+		bash RoomListView.sh ${ip} # 화면 전환 
     else 
     	sleep 1
     	echo ${password}

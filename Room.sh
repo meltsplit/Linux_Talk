@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ip=$1
+
 declare -i five_Minute=600 #temporary 10 minutes 
 showChat(){
 	while read line;
@@ -25,17 +27,6 @@ updateUI(){
 		
     	echo -e "\n"
 }
-
-#sendMessage(){
-    	#clear
-    	#updateUI
-    	#echo " <<Send Message>> " 
-    	#read -p "Input Message: " msg_s
-    	#export msg_s
-	
-	#echo "$(date);${username};${msg_s}" >> chatLog${opt_R}.txt
-		
-#}
 
 deleteMessageProgram(){
 	

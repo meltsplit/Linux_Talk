@@ -22,4 +22,5 @@ do
 	if [ "${ior}" = 1 ];
 	then
 		${msg} >> chatLog${rnum}.txt
+	fi
 done

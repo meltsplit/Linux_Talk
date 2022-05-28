@@ -1,5 +1,7 @@
 #! /bin/bash
 
+ip=$1
+
 RoomListView() {
 	export opt_R=0
 	
@@ -23,7 +25,7 @@ RoomListView() {
 	if [ "${opt_R}" = "4" ]; then
 		break
 	else
-		bash Room.sh ${username} ${opt_R}  #RoomListView -> RoomView
+		bash Room.sh ${ip}  #RoomListView -> RoomView
 	fi
 
 	done
