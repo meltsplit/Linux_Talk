@@ -1,6 +1,7 @@
 #!/bin/bash
 
-ip=$1
+IP=$1
+PORT=$2
 
 declare -i five_Minute=600 #temporary 10 minutes 
 loadingView(){
@@ -175,7 +176,7 @@ exitRoom(){
 
 sendMessage(){
 	#echo "$(date);${username};${msg_s}" >> chatLog${roomNum}.txt
-	bash msgsend.sh   # send msg to server
+	bash msgsend.sh ${IP} ${PORT}  # send msg to server
 }
 
 roomView() {

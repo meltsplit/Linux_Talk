@@ -1,6 +1,7 @@
 declare exist="false"
 
-ip=`ip route get 8.8.8.8 | cut -d ' ' -f 7`
+IP=`ip route get 8.8.8.8 | cut -d ' ' -f 7`
+PORT="$(($RANDOM% 1001+1111))"
 
 LogIn() {
     while [ true ]
@@ -44,7 +45,7 @@ checkPassword(){
 
     if [ "${password}" == "`grep $username userID.txt | cut -d ";" -f 2`" ]; then
         #Success
-		bash RoomListView.sh ${ip} # 화면 전환 
+		bash RoomListView.sh ${IP} ${PORT} # 화면 전환 
     else 
     	sleep 1
     	echo ${password}

@@ -1,6 +1,7 @@
 #! /bin/bash
 
-ip=$1
+IP=$1
+PORT=$2
 
 RoomListView() {
 	export roomNum=0
@@ -26,7 +27,7 @@ RoomListView() {
 		break
 	else
 <<<<<<< HEAD
-		bash Room.sh ${ip}  #RoomListView -> RoomView
+		bash Room.sh ${IP} ${PORT} #RoomListView -> RoomView
 =======
 		bash room.sh  #RoomListView -> RoomView
 >>>>>>> df64381b4a9f296ab023e8f51ade58176c3b8926
