@@ -76,7 +76,7 @@ showChat(){
 	prev_Date=0
 	count=1
 
-    if [ "${FINDYES}" != "FINDYES" ]; then
+    if [ "${findExist}" != "true" ]; then
         findMsg="|||"
     fi
 
@@ -162,6 +162,8 @@ showChat(){
 findMessage(){
     tput cup 28 13
 	tput cnorm
+	
+	findArray=()
 	declare -i lineNum=1
 
 	read findMsg
@@ -172,7 +174,7 @@ findMessage(){
     findNum=${findCount}
 
     if [ $findCount -gt 0 ]; then
-        FINDYES=FINDYES
+        findExist=true
     fi
 
 }
@@ -492,7 +494,7 @@ Find_Select(){
 
 	FindView 
     mode=Find
-    FINDYES=false
+    findExist=false
 	chatCount=`wc -l<chatLog${roomNum}.txt`
 	lastLine=$chatCount
 
@@ -512,7 +514,7 @@ do
 	"28")
 	if [[ -z ${KEY} ]]; then  
 		findMessage
-        if [ "$FINDYES"="FINDYES" ]; then
+        if [ "$findExist" = "true" ]; then
 		    lastLine=`expr ${findArray[findNum-1]} + 3`
         fi
 	elif [ "${KEY}" = "[A" ]; then  #up
@@ -607,7 +609,7 @@ done
 x=2
 y=28
 tput cup $y $x
-FINDYES=false
+findExist=false
 mode=Default
 }
 
