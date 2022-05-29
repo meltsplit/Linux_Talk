@@ -26,11 +26,8 @@ RoomListView() {
 	if [ "${roomNum}" = "4" ]; then
 		break
 	else
-<<<<<<< HEAD
 		bash Room.sh ${IP} ${PORT} #RoomListView -> RoomView
-=======
-		bash room.sh  #RoomListView -> RoomView
->>>>>>> df64381b4a9f296ab023e8f51ade58176c3b8926
+		#bash room.sh ${IP} ${PORT} 
 	fi
 
 	done
