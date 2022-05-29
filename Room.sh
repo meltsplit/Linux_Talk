@@ -176,7 +176,7 @@ exitRoom(){
 
 sendMessage(){
 	echo "$(date);${username};${msg_s}" >> chatLog${roomNum}.txt
-	bash msgsend.sh ${IP} ${PORT}  # send msg to server
+	bash msgsend.sh ${IP} ${PORT}  # Send chatLog.txt to server
 }
 
 roomView() {
