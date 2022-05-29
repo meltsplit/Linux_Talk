@@ -4,9 +4,8 @@ IP=$1
 PORT=$2
 
 sendChat() {
-	# read -p "msg: " msg
-	# echo "$(date);${username};${msg}" | nc -q 0 ${IP} ${PORT}
-	
+	timeout 1s nc 1234 #server IP is needed
+	timeout 1s nc 1234 < chatLog${roomNum}.txt #server IP is needed	
 }
 
 sendChat
