@@ -3,7 +3,8 @@
 IP=$1
 PORT=$2
 
-declare -i five_Minute=600 #temporary 10 minutes 
+declare -i five_Minute=600 #temporary 10 minutes
+
 loadingView(){
 	clear
 	echo -e "\n\n\n\n\n\n\n             [ $1 ]\n\n"
@@ -179,6 +180,11 @@ sendMessage(){
 	bash msgsend.sh ${IP} ${PORT}  # Send chatLog.txt to server
 }
 
+receiveMessage(){
+	timeout 1s nc -l 1234
+	timeout 1s nc -l 1234 > chatLog${roomNum}.txt # Receive messages from server
+}
+
 roomView() {
 
 #Delete: /D
@@ -201,7 +207,7 @@ roomView() {
 				"/D") deleteMessage;;
 				"/F") findMessage;;
 				"/E") exitRoom ;;
-				*) sendMessage;;
+				*) receiveMessage sendMessage ;;
 			esac
 		fi
 		
