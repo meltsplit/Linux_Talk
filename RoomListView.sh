@@ -83,7 +83,7 @@ RoomList() {
 						    tput cup 12 15; echo "incorrect passwd"
 						    sleep 2
 					    fi
-					  else
+				    else
 					    bash room.sh 
 				    fi
 			    elif [[ $x == 42 ]]; then       # 특정라인의 방삭제를 입력했을 경우
