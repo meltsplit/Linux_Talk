@@ -68,13 +68,9 @@ LogIn() {  #로그인시작(아이디입력)
 	    tput cup 6 15; echo -n "Username: "
 	    read username
 	    
-    while read line; 
-    do
-        if [ "${username}" == "`echo $line | cut -d ";" -f 1`" ]; then
-			    exist="true" #ID가 존재
-			    break
-        fi
-    done < userID.txt
+	    if [ "${username}" == "`grep -w ${username} userID.txt | cut -d ";" -f 1`" ]; then
+		    exist="true" #ID가 존재
+	    fi
     
 	    if [ $exist == "true" ]; then # 아이디 존재 하는 경우
 		    check_passwd

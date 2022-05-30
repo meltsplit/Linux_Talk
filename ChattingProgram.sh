@@ -92,4 +92,5 @@ main(){
 	echo "<<Program End>>"
 }
 
+tput civis
 main
