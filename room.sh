@@ -1,6 +1,6 @@
 declare -i ten_Minute=600
 GREP_COLOR="46"
-ip=`ip route get 8.8.8.8 | cut -d ' ' -f 7`
+ip=`ip route get 8.8.8.8 | cut -d ' ' -f 7 | tr -s '\n'`
 
 sendMessage(){
 	tput cup 28 12
