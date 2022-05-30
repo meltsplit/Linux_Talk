@@ -21,14 +21,16 @@ RoomList() {
 		    roomNum[$i]=`sed -n ${i}p < Roomlist.txt | cut -d ":" -f 1-2`
 	    done
     
-    tput cup 5 13; echo "Add Room                        Exit"
+    tput cup 5 13; echo "Add Room                          Exit"
 
 	  line=8
-	  for(( n=1; n<=$num; n++ ))   #채팅방 목록 출력
+	  for(( n=1; n<=$num; n++ ))   #채팅방 목록 출력, 방마다 삭제 옵션 출력
 	    do
 		    tput cup $line 10; echo ${roomNum[$n]}
+		    tput cup $line 45; echo "[Delete]"
 		    line=`expr $line + 1`
 	    done
+
     
 	  line=8
 	  x=7
@@ -48,26 +50,29 @@ RoomList() {
 				    bash Addroom.sh
 			    elif [[ $x == 42 ]]; then     # 엔터 -> 나가기를 눌렀을 경우
 				    clear
-				    echo "exit"
+				    tput cup 5 20; echo "*** Exit ***"
 				    sleep 2
 				    exit
 			    fi
 
 		    elif [[ $line -ge 8 ]] && [[ $line -le `expr $num + 7` ]]; then # 엔터 -> 채팅방 목록중에 하나를 선택했을 경우
-			    if [[ $x == 7 ]]; then
+			    if [[ $x == 7 ]]; then          # 특정 채팅방 선택
 				    clear
 				    n=`expr $line - 7`
 				    echo "enter ${roomNum[$n]}"
 				    sleep 2
-				    bash room.sh                  # RoomList -> Room
-			    elif [[ $x == 42 ]]; then
-				    clear
-				   echo "delete Room_name"
-
+				    bash room.sh                  # 선택한 채팅방으로 이동
+			    elif [[ $x == 42 ]]; then       # 특정라인의 방삭제를 입력했을 경우
+				    n=`expr $line - 7`
+				    if [[ ${username} == `sed -n ${n}p Roomlist.txt | cut -d ":" -f 3` ]]; then
+					    `sed -i ${n}d Roomlist.txt` # 해당 채팅방 만든 사람만 삭제 가능
+				    else 
+					    echo "access denied"        # 해당 채팅방 만든 사람아니면 삭제 불가
+				    sleep 2
+				    fi
 				  fi
-			    
-		    break
 		    fi
+		    break
     fi
     
 # 방향키 위, 아래, 왼쪽, 오른쪽 움직임 알고리즘
@@ -104,10 +109,13 @@ RoomList() {
 	    fi
 
 done
-#		bash room.sh  #RoomListView -> RoomView
-
 }
 
-RoomList
+while [ true ]
+do
+
+    RoomList
+
+done
 
 
