@@ -4,6 +4,7 @@
 
 declare -a iparr
 nc -lk 1234 > rtext.txt &
+port=1234
 
 #not actual var
 
