@@ -7,7 +7,7 @@ sendMessage(){
 	tput cnorm
 	read msg
 
-	echo "$(date);${username};${msg};${ip};|" >> chatLog${roomNum}.txt
+	echo "$(date);${username};${msg};${ip};|" >> chatLog_${roomName}.txt
 	bash msgsend.sh
 }
 
@@ -79,7 +79,7 @@ showChat(){
 	count=1
 	
 	timeout 1s nc -l 1234
-	timeout 1s nc -l 1234 > chatLog${roomNum}.txt
+	timeout 1s nc -l 1234 > chatLog_${roomName}.txt
 
     if [ "${findExist}" != "true" ]; then
         findMsg="|||"
