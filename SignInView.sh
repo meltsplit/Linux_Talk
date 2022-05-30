@@ -43,7 +43,7 @@ check_passwd() {
     fi
     done
 
-    if [ "${password}" == "`grep $username userID.txt | cut -d ";" -f 2`" ]; then #Success
+    if [ "${password}" == "`grep -w $username userID.txt | cut -d ";" -f 2`" ]; then #Success
 		bash RoomListView.sh  # 화면 전환
 		break 
     else 
