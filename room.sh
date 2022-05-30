@@ -1,5 +1,11 @@
 declare -i ten_Minute=600
 GREP_COLOR="46"
+ip=`ip route get 8.8.8.8 | cut -d ' ' -f 7 | tr -s '\n'`
+
+getFile() {
+	timeout 1s nc -l 1234
+	timeout 1s nc -l 1234 > "chatLog_${roomName}.txt"
+}
 
 sendMessage(){
 	tput cup 28 12
@@ -7,6 +13,7 @@ sendMessage(){
 	read msg
 
 	echo "$(date);${username};${msg};${ip};|" >> "chatLog_${roomName}.txt"
+	bash msgsend.sh
 }
 
 deleteMessage(){
@@ -32,7 +39,7 @@ deleteMessage(){
 		lineNum=`expr $lineNum + 1`
 
 	done < "chatLog_${roomName}.txt"
-		
+	bash msgsend.sh	
 
 }
 deleteUnsetting(){
@@ -319,6 +326,7 @@ Room_Select(){
 while :
 do  
     mode=Default
+	getFile
 	showChat ${lastLine}
 	selectMark
 	
