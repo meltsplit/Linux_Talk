@@ -2,5 +2,5 @@
 (Public) Room : PPT :song
 (Public) Room : song's room :song : 1234
 (Secret) Room : 99! : 99 :song
-(Public) Room : ssss:mikekks
-(Secret) Room : hihi:mikekks : 
+(Secret) Room : hihi :mikekks : 
+(Public) Room : test99:mikekks

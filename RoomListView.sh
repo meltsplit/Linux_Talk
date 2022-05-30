@@ -1,5 +1,6 @@
 #! /bin/bash
 
+export roomName
 
 #방향키 입력 받는 함수
 input_key() {  
@@ -15,12 +16,16 @@ RoomList() {
     tput cup 2 18; echo "[Room List]"
     num=`wc -l Roomlist.txt | cut -b 1-2` # 파일의 길이 -> 채팅방 목록에 번호 할당을 위해서
     declare -a roomNum
+    declare -a roomName_a
     
     for(( i=1; i<=$num; i++ )) # 채팅방 목록에 각각 번호 할당
 	    do
 		    roomNum[$i]=`sed -n ${i}p < Roomlist.txt | cut -d ":" -f 1-2`
 	    done
-    
+    for(( i=1; i<=$num; i++ ))
+	    do
+		    roomName_a[$i]=`sed -n ${i}p < Roomlist.txt | cut -d ":" -f 2`
+	    done
     tput cup 5 13; echo "Add Room                          Exit"
 
 	  line=8
@@ -60,6 +65,8 @@ RoomList() {
 				    clear
 				    n=`expr $line - 7`
 				    echo "enter ${roomNum[$n]}"
+				    roomName=${roomName_a[$n]}
+				    echo $roomName
 				    sleep 2
 				    bash room.sh                  # 선택한 채팅방으로 이동
 			    elif [[ $x == 42 ]]; then       # 특정라인의 방삭제를 입력했을 경우
