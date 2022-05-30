@@ -8,9 +8,17 @@ input_key() {
 SignUpView() {
     clear
     cat defaultView.txt
+	    tput cnorm
 	    tput cup 5 10; echo -n "Your username? : "
 	    read username  #글자수 제한하고 싶은데 -n 옵션하면 백스페이스 키가 안먹는다?
+
+	    if [[ ${#username} -ge 25 ]]; then
+		    tput cup 6 10; echo "error: maximum ID name : 25"
+		    tput cup 8 10; echo "Re - Enter please"
+		    sleep 4
+		    exit
 	    
+	    else
 	    existing_id=`cat userID.txt | cut -d ";" -f 1 | grep -w "$username"`
 
 		    while [ "$username" = "$existing_id" ]
@@ -58,6 +66,7 @@ do
 	    tput cup $line 28; echo "  "
     fi
 done
+fi
 }
 
 
@@ -72,6 +81,7 @@ SignUp_success() {
     sleep 2
 
 }
+
 
 SignUpView
 tput cnorm

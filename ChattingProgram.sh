@@ -83,7 +83,7 @@ main(){
 	    SELECTED=0
 	    while [ "${items[$SELECTED]}" != "3.exit   " ]
 		    do
-
+		    tput civis
 		    main_view "${items[@]}"
 		    selected_item
 		
