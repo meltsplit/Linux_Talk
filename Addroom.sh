@@ -59,7 +59,7 @@ public(){                      # 오픈채팅방 생성 함수
     tput cup 10 14; echo -n "room name: "
     read public_room
     echo "(Public) Room : ${public_room}:${username}" >> Roomlist.txt
-
+    touch chatLog_${public_room}.txt
     tput cup 12 14; echo "Add ${public_room} Room success!"
     sleep 2
     
@@ -74,6 +74,7 @@ secret(){                      # 비밀 채팅방 생성 함수
     read -s secret_room_p
 
     echo "(Secret) Room : ${secret_room}:${username} : $privateroom_p" >> Roomlist.txt
+    touch chatLog_${secret_room}.txt
 
     tput cup 13 14; echo "Add ${secret_room} Room success!"
     sleep 2

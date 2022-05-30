@@ -7,7 +7,7 @@ input_key() {
 
 SignUpView() {
     clear
-    cat SignUpView.txt
+    cat defaultView.txt
 	    tput cup 5 10; echo -n "Your username? : "
 	    read username  #글자수 제한하고 싶은데 -n 옵션하면 백스페이스 키가 안먹는다?
 	    
@@ -63,7 +63,7 @@ done
 
 SignUp_success() {
     clear
-    cat SignUpView.txt
+    cat defaultView.txt
     tput cup 5 17; echo "*----------------------*"
     tput cup 6 17; echo "|                      |"
     tput cup 7 17; echo "|   Sign Up success!   |"
