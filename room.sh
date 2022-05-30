@@ -6,7 +6,7 @@ sendMessage(){
 	tput cnorm
 	read msg
 
-	echo "$(date);${username};${msg};|" >> chatLog${roomNum}.txt 
+	echo "$(date);${username};${msg};|" >> chatLog_${roomName}.txt
 }
 
 deleteMessage(){
@@ -26,17 +26,17 @@ deleteMessage(){
 		delNum=`echo ${line}|cut -d '|' -f 2`
 
 		if [ "${d}" = "${delNum}" ]; then
-                sed -i "${lineNum}s/.*/${time};${user};---(Delete Message)---;|/g" chatLog${roomNum}.txt
+                sed -i "${lineNum}s/.*/${time};${user};---(Delete Message)---;|/g" chatLog_${roomName}.txt
 		fi
 
 		lineNum=`expr $lineNum + 1`
 
-	done < chatLog${roomNum}.txt
+	done < chatLog_${roomName}.txt
 		
 
 }
 deleteUnsetting(){
-    sed -i 's/|.*/|/g' chatLog${roomNum}.txt
+    sed -i 's/|.*/|/g' chatLog_${roomName}.txt
 }
 
 
@@ -58,13 +58,13 @@ deleteSetting(){
 		if [ "${username}" = "${user}" ]; then
 			if [ ${timeInterval} -le ${ten_Minute} ]; then
 				if [ "${message}" != "---(Delete Message)---" ]; then
-				sed -i "${lineNum}s/.*/${time};${user};${message};|$delNum/g" chatLog${roomNum}.txt
+				sed -i "${lineNum}s/.*/${time};${user};${message};|$delNum/g" chatLog_${roomName}.txt
 				delNum=`expr $delNum + 1`
 				fi
 			fi
 		fi
 		lineNum=`expr $lineNum + 1`
-	done < chatLog${roomNum}.txt
+	done < chatLog_${roomName}.txt
 	
 }
 
@@ -98,7 +98,7 @@ showChat(){
 		prev_Date=0
 	fi
 	
-	line=`sed -n ${i}p < chatLog${roomNum}.txt`    
+	line=`sed -n ${i}p < chatLog_${roomName}.txt`    
 	
 	
 	time=`echo ${line}|cut -d ';' -f 1`
@@ -168,8 +168,8 @@ findMessage(){
 
 	read findMsg
 
-    chatLog${roomNum}.txt | cut -d ';' -f 3 | grep -c ${findMsg}
-    findArray=( `cat chatLog${roomNum}.txt | cut -d ';' -f 3 | grep -n  ${findMsg}| cut -d ':' -f 1` )
+    chatLog_${roomName}.txt | cut -d ';' -f 3 | grep -c ${findMsg}
+    findArray=( `cat chatLog_${roomName}.txt | cut -d ';' -f 3 | grep -n  ${findMsg}| cut -d ':' -f 1` )
     findCount=${#findArray[*]}
     findNum=${findCount}
 
@@ -215,7 +215,7 @@ echo "|                                                           |"
 echo "*-----------------------------------------------------------*"
 
 tput cup 1 27
-echo "Room${roomNum}" 
+echo "${roomName}" 
 
 }
 
@@ -313,7 +313,7 @@ Room_Select(){
 	x=2
 	y=28
 	DefaultView 
-	chatCount=`wc -l<chatLog${roomNum}.txt`
+	chatCount=`wc -l<chatLog_${roomName}.txt`
 	lastLine=$chatCount
 while :
 do  
@@ -327,7 +327,7 @@ do
 	"28")
 	if [[ -z ${KEY} ]]; then  
 		sendMessage  
-		chatCount=`wc -l<chatLog${roomNum}.txt`
+		chatCount=`wc -l<chatLog_${roomName}.txt`
 		lastLine=$chatCount
 		
 	elif [ "${KEY}" = "[A" ]; then  #up
@@ -417,7 +417,7 @@ Delete_Select(){
 	mode=Delete
 	deleteSetting
 	DeleteView
-	chatCount=`wc -l<chatLog${roomNum}.txt`
+	chatCount=`wc -l<chatLog_${roomName}.txt`
 	lastLine=$chatCount
 while :
 do  
@@ -495,7 +495,7 @@ Find_Select(){
 	FindView 
     mode=Find
     findExist=false
-	chatCount=`wc -l<chatLog${roomNum}.txt`
+	chatCount=`wc -l<chatLog_${roomName}.txt`
 	lastLine=$chatCount
 
     findCount=0
