@@ -86,6 +86,7 @@ showChat(){
 	${mode}View
 	tput cup 1 49
 	
+	if [ "" != "$chatCount" ]; then
 	
 	if [ $lastLine -lt 7 ];then
 		lastLine=7
@@ -93,8 +94,12 @@ showChat(){
 		lastLine=$chatCount
 	fi 
 	
+	if [ $chatCount = 1 ]; then
+		chatCount=2
+	fi
 	currentPage=`expr \( ${lastLine} + 4 \) / 6`
 	totalPage=`expr \( ${chatCount} + 4 \)  / 6`
+	
 	echo "${currentPage}/${totalPage} page"
 	
 	x_chat=3
@@ -180,6 +185,7 @@ showChat(){
 	
 	count=`expr ${count} + 1`
 	done
+	fi
 }
 
 findMessage(){
@@ -340,7 +346,7 @@ Room_Select(){
 	lastLine=$chatCount
 while :
 do  
-    mode=Default
+    	mode=Default
 	showChat ${lastLine}
 	selectMark
 	

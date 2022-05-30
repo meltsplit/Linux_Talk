@@ -1,4 +1,6 @@
-x=1
-y=( a b c )
-echo ${y[x-1]}
+a=$skr | a=2
+echo $a
 
+bbb=hoho
+b=$bbb 
+echo $b

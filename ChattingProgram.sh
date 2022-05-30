@@ -2,6 +2,51 @@
 
 export username="default name"
 
+tutorial(){
+tput cup 0 0
+
+while :
+do
+clear
+echo "*-----------------------------------------------------------*" #0
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |" #3
+echo "|                                                           |"
+echo "|                     Use Full Screen!                      |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|             You should resize console screen              |"
+echo "|                to show this box correctly                 |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                   If you confirm this                     |"
+echo "|                                                           |"
+echo "|                      press [Enter]                        |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "|                                                           |"
+echo "*-----------------------------------------------------------*"
+input=$(input_key)
+if [[ -z $input ]]; then
+	break
+fi
+done
+
+}
+
 input_key() {
     read -s -n 3 INPUT
     echo $INPUT
@@ -77,7 +122,7 @@ selected_item(){
 }
 
 main(){
-
+	tutorial
     timedatectl set-timezone Asia/Seoul	
     items=("test" "1.sign in" "2.sign up" "3.exit   ")
 	    SELECTED=0
