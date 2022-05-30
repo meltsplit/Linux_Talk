@@ -69,16 +69,18 @@ RoomList() {
 			    if [[ $x == 7 ]]; then          # 특정 채팅방 선택
 				    clear
 				    n=`expr $line - 7`
-				    echo "enter ${roomNum[$n]}"
 				    roomName=${roomName_a[$n]}
 				    
 				    if [[ -n `sed -n ${n}p < Roomlist.txt | cut -d ":" -f 4` ]]; then
-				    echo -n "Enter passwd: "
+				    cat defaultView.txt
+				    tput cup 7 19; echo "Enter < ${roomName} Room >"
+				    tput cnorm
+				    tput cup 10 15; echo -n "Enter password: "
 				    read passwd
 					    if [[ "`sed -n ${n}p < Roomlist.txt | cut -d ":" -f 4`" == "$passwd" ]]; then
 						    bash room.sh
 					    else 
-						    echo "incorrect passwd"
+						    tput cup 12 15; echo "incorrect passwd"
 						    sleep 2
 					    fi
 					  else
