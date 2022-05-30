@@ -20,7 +20,8 @@ transmitT() {
 
 ipGet() {
 
-	arr=($(echo $(cut -d ';' -f 1 chatLog.txt))) #echo의 개행을 whitespace로 변환하는 특성을 이용하여서 배열 생성
+	tarr=($(echo $(cut -d ';' -f 1 chatLog.txt))) #echo의 개행을 whitespace로 변환하는 특성을 이용하여서 배열 생성
+	iparr=($(echo "${tarr[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
 
 }
 
@@ -32,5 +33,6 @@ do
 	do
 	timeout 1s nc -z ${ip} ${port} #전송 대상 포트 개방 확인
 	nc -q 0 ${ip} ${port} < chatLog${roomNum}.txt #파일 전송
+	done
 done
 
