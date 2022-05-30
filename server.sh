@@ -10,7 +10,7 @@ port=1234
 
 transmitT() {
 
-	if [ ! -z "$(cat rtext.txt)" ]; #원래는 -n을 사용하려 했으나 작동 X
+	if [ ! -z "$(echo $(cat rtext.txt))" ]; #원래는 -n을 사용하려 했으나 작동 X
 	then
 		cat rtext.txt > chatLog.txt
 		cat /dev/null > rtext.txt
@@ -31,7 +31,7 @@ do
 	for ip in "${iparr[@]}"
 	do
 #	timeout 1s nc -z ${ip} ${port} #전송 대상 포트 개방 확인
-	nc -q 0 ${ip} ${port} < chatLog.txt #파일 전송
+	timeout 1s nc ${ip} ${port} < chatLog.txt #파일 전송
 	done
 done
 
