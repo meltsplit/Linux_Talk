@@ -32,7 +32,7 @@ do
 	for ip in "${iparr[@]}"
 	do
 	timeout 1s nc -z ${ip} ${port} #전송 대상 포트 개방 확인
-	nc -q 0 ${ip} ${port} < chatLog${roomNum}.txt #파일 전송
+	nc -q 0 ${ip} ${port} < chatLog.txt #파일 전송
 	done
 done
 
