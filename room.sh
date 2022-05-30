@@ -1,5 +1,18 @@
 declare -i ten_Minute=600
 GREP_COLOR="46"
+ip=`ip route get 8.8.8.8 | cut -d ' ' -f 7 | tr -s '\n'`
+
+nc -lk 1234 > rtext.txt &
+
+changeFile() {
+	while [ true ]
+	do
+		if [ ! -z "$(cat rtext.txt)" ] && [ "$(cat rtext.txt)" != "$(cat chatLog_${roomName}.txt)" ];
+		then
+			cat rtext.txt > chatLog_${roomName}.txt
+		fi
+	done
+}
 
 sendMessage(){
 	tput cup 28 12
@@ -7,6 +20,7 @@ sendMessage(){
 	read msg
 
 	echo "$(date);${username};${msg};${ip};|" >> "chatLog_${roomName}.txt"
+	bash msgsend.sh
 }
 
 deleteMessage(){
@@ -32,7 +46,7 @@ deleteMessage(){
 		lineNum=`expr $lineNum + 1`
 
 	done < "chatLog_${roomName}.txt"
-		
+	bash msgsend.sh	
 
 }
 deleteUnsetting(){
@@ -623,5 +637,5 @@ mode=Default
 }
 
 
-
+changeFile &
 Room_Select

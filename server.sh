@@ -1,21 +1,20 @@
 #! /bin/bash
 
-#nc 명령어 2회 실행을 통해 한 번의 전송을 수행합니다. 그에 따라 클라이언트에서도
 #nc -l 1234; nc -l 1234 > chatLog1.txt와 같은 식으로 코드를 작성해야 연속적인 동작이 가능합니다.
 
 declare -a iparr
+nc -lk 1234 > rtext.txt &
+port=1234
 
 #not actual var
 
 transmitT() {
 
-	timeout 1s nc -l 1234 # 수신 가능 상태 전달용 nc -z 수신
-	timeout 1s nc -l 1234 > rtext.txt
 	if [ ! -z "$(cat rtext.txt)" ]; #원래는 -n을 사용하려 했으나 작동 X
 	then
 		cat rtext.txt > chatLog.txt
+		cat /dev/null > rtext.txt
 	fi
-
 }
 
 ipGet() {
@@ -31,7 +30,7 @@ do
 	ipGet
 	for ip in "${iparr[@]}"
 	do
-	timeout 1s nc -z ${ip} ${port} #전송 대상 포트 개방 확인
+#	timeout 1s nc -z ${ip} ${port} #전송 대상 포트 개방 확인
 	nc -q 0 ${ip} ${port} < chatLog.txt #파일 전송
 	done
 done
