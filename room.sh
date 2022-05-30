@@ -7,7 +7,7 @@ nc -lk 1234 > rtext.txt &
 changeFile() {
 	while [ true ]
 	do
-		if [ ! -z "$(cat rtext.txt)" && "$(cat rtext.txt)" != "$(cat chatLog_${roomName}.txt)" ];
+		if [ ! -z "$(cat rtext.txt)" ] && [ "$(cat rtext.txt)" != "$(cat chatLog_${roomName}.txt)" ];
 		then
 			cat rtext.txt > chatLog_${roomName}.txt
 		fi
