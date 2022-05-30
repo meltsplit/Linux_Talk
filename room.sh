@@ -1,12 +1,13 @@
 declare -i ten_Minute=600
 GREP_COLOR="46"
+ip=`ip route get 8.8.8.8 | cut -d ' ' -f 7`
 
 sendMessage(){
 	tput cup 28 12
 	tput cnorm
 	read msg
 
-	echo "$(date);${username};${msg};|" >> chatLog${roomNum}.txt 
+	echo "$(date);${username};${msg};${ip}|" >> chatLog${roomNum}.txt 
 }
 
 deleteMessage(){
@@ -75,6 +76,9 @@ showChat(){
 	tput cup $y_chat $x_chat
 	prev_Date=0
 	count=1
+	
+	timeout 1s nc -l 1234
+	timeout 1s nc -l 1234 > chatLog${roomNum}.txt
 
     if [ "${findExist}" != "true" ]; then
         findMsg="|||"
