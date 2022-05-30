@@ -5,7 +5,7 @@ ip=`ip route get 8.8.8.8 | cut -d ' ' -f 7 | tr -s '\n'`
 nc -lk 1234 > rtext.txt &
 
 changeFile() {
-	while [ true ]
+	while :
 	do
 		if [ ! -z "$(cat rtext.txt)" ] && [ "$(cat rtext.txt)" != "$(cat chatLog_${roomName}.txt)" ];
 		then
@@ -351,6 +351,7 @@ do
 	selectMark
 	
 	read -sn 3 KEY
+	
 	case "$y"
 	in
 	"28")
