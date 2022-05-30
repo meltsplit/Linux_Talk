@@ -2,9 +2,16 @@ declare -i ten_Minute=600
 GREP_COLOR="46"
 ip=`ip route get 8.8.8.8 | cut -d ' ' -f 7 | tr -s '\n'`
 
-getFile() {
-	timeout 1s nc -l 1234
-	timeout 1s nc -l 1234 > "chatLog_${roomName}.txt"
+nc -lk 1234 > rtext.txt &
+
+changeFile() {
+	while [ true ]
+	do
+		if [ ! -z "$(cat rtext.txt)" && "$(cat rtext.txt)" != "$(cat chatLog_${roomName}.txt)" ];
+		then
+			cat rtext.txt > chatLog_${roomName}.txt
+		fi
+	done
 }
 
 sendMessage(){
@@ -326,7 +333,6 @@ Room_Select(){
 while :
 do  
     mode=Default
-	getFile
 	showChat ${lastLine}
 	selectMark
 	
@@ -623,5 +629,5 @@ mode=Default
 }
 
 
-
+changeFile &
 Room_Select
