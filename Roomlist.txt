@@ -5,3 +5,4 @@
 (Secret) Room:hihi:mikekks:1234 
 (Public) Room:test99:mikekks
 (Secret) Room:my:mikekks:1234
+(Public) Room:count:ee

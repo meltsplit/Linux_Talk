@@ -70,6 +70,19 @@ deleteSetting(){
 
 showChat(){
 	${mode}View
+	tput cup 1 49
+	
+	
+	if [ $lastLine -lt 7 ];then
+		lastLine=7
+	elif [ $lastLine -gt $chatCount ]; then
+		lastLine=$chatCount
+	fi 
+	
+	currentPage=`expr \( ${lastLine} + 4 \) / 6`
+	totalPage=`expr \( ${chatCount} + 4 \)  / 6`
+	echo "${currentPage}/${totalPage} page"
+	
 	x_chat=3
 	y_chat=3
 	tput cup $y_chat $x_chat
@@ -81,11 +94,6 @@ showChat(){
         findMsg="|||"
     fi
 
-	if [ $lastLine -lt 7 ];then
-		lastLine=7
-	elif [ $lastLine -gt $chatCount ]; then
-		lastLine=$chatCount
-	fi 
 	
 	for (( i=`expr ${lastLine} - 6`;i<=${lastLine};i++ ))
 	do
@@ -418,7 +426,7 @@ Delete_Select(){
 	mode=Delete
 	deleteSetting
 	DeleteView
-	chatCount=`wc -l< "chatLog_${roomName}.txt"`
+	chatCount=`wc -l < "chatLog_${roomName}.txt"`
 	lastLine=$chatCount
 while :
 do  
@@ -506,8 +514,8 @@ do
 	showChat ${lastLine}
 	selectMark
 
-	tput cup 28 63
-    echo "${findNum}/${findCount}"
+	tput cup 1 3
+    	echo " find: ${findNum}/${findCount}"
 
 	read -sn 3 KEY
 	case "$y"
