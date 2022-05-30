@@ -44,7 +44,8 @@ check_passwd() {
     done
 
     if [ "${password}" == "`grep $username userID.txt | cut -d ";" -f 2`" ]; then #Success
-		bash RoomListView.sh  # 화면 전환 
+		bash RoomListView.sh  # 화면 전환
+		break 
     else 
     	sleep 1
     	tput cup 14 19; echo "${password}                      "
@@ -116,6 +117,7 @@ SignInView() {
     while [ true ]
 	do
     clear
+    tput cnorm
     cat defaultView.txt
     LogIn
 	done

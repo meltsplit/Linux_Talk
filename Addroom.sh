@@ -1,77 +1,81 @@
 #! /bin/bash
 
 
-input_key(){
+input_key(){                    # 방향키 입력 받는 함수방향키 입력 받는 함수
     read -s -n 3 INPUT
     echo $INPUT
 }
 
 Add_room(){
-    cat defaultView.txt
-
-    line=10
-    column=6
+    cat defaultView.txt         # 기본 UI 틀 출력
+    tput civis                  # 커서 숨기기
+    line=7
+    x=5
 while [ true ]
 do
-    tput cup 8 14; echo "Room Type"
-    tput cup 10 8; echo "[private]   [open]      [exit]"
-    tput cup $line $column; echo "->"
+    tput cup 2 21; echo "[ Add Room ]"    # 기본 UI 출력
+    tput cup 5 20; echo "<< Room Type >>"
+    tput cup 6 1; echo "------------------------------------------------------"
+    tput cup 7 8; echo "[Secret]       [Public]       [exit]"
+    tput cup 8 1; echo "------------------------------------------------------"
+    tput cup $line $x; echo "->"         # 방향키 움직임 구현
 
     input=$(input_key)
 
     if [[ -z $input ]]; then
-	    clear
-	    if [[ $column == 6 ]]; then
-		    tput cup 10 14; echo "Type : private talk       "
-		    private
-	    elif [[ $column == 18 ]]; then
-		    tput cup 10 14; echo "Type : open talk          "
-		    open
-	    elif [[ $column == 30 ]]; then
-		    tput cup 10 14; echo "Type : Exit            "
+	    if [[ $x == 5 ]]; then
+		    tput cup 9 8; echo "Type : Secret talk"
+		    secret
+	    elif [[ $x == 20 ]]; then
+		    tput cup 9 8; echo "Type : Public talk"
+		    public
+	    elif [[ $x == 35 ]]; then
+		    tput cup 9 8; echo "Exit [ Add Room ]"
+		    exit
 	    fi
 	    break
     fi
-#8,20,32
+#5,20,35
     if [[ $input = [D ]]; then
-	    column=`expr $column - 12`
+	    tput cup 7 $x; echo "  "
+	    x=`expr $x - 15`
     elif [[ $input = [C ]]; then
-	    column=`expr $column + 12`
+	    tput cup 7 $x; echo "  "
+	    x=`expr $x + 15`
     fi
 
-    if [[ $column -le 6 ]]; then
-	    column=6
-		elif [[ $column -gt 30 ]]; then
-	    column=30
+    if [[ $x -le 5 ]]; then
+	    x=5
+		elif [[ $x -gt 35 ]]; then
+	    x=35
     fi
-    clear
-    tput cup 0 0; cat Addroom.txt
 
 done
 }
 
-open(){
+public(){                      # 오픈채팅방 생성 함수
 
-    tput cup 8 14; echo -n "room name: "
-    read -n 13 openroom
+    tput cnorm
+    tput cup 10 14; echo -n "room name: "
+    read public_room
+    echo "(Public) Room : ${public_room}:${username}" >> Roomlist.txt
 
-    echo "|           [open] $openroom;  [delete]  |" >> listroom.txt
-
-    tput cup 10 14; echo "Add $openroom Room success!"
+    tput cup 12 14; echo "Add ${public_room} Room success!"
     sleep 2
     
 }
 
-private(){
+secret(){                      # 비밀 채팅방 생성 함수
 
-    tput cup 8 14; echo -n "room name: "
-    read -n 13 privateroom
-    echo -n "enter passwd: "
-    read privateroom_p
+    tput cnorm
+    tput cup 10 14; echo -n "room name: "
+    read secret_room
+    tput cup 11 14; echo -n "enter passwd: "
+    read -s secret_room_p
 
-    echo "|           [private] $privateroom;$privateroom_p" >> listroom.txt
+    echo "(Secret) Room : ${secret_room}:${username} : $privateroom_p" >> Roomlist.txt
 
-    tput cup 12 14; echo "Add $privateroom Room success!"
+    tput cup 13 14; echo "Add ${secret_room} Room success!"
     sleep 2
 
     
