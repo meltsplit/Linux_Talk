@@ -7,8 +7,8 @@ sendMessage(){
 	tput cnorm
 	read msg
 
-	echo "$(date);${username};${msg};${ip};|" >> chatLog${roomNum}.txt 
-
+	echo "$(date);${username};${msg};${ip};|" >> chatLog${roomNum}.txt
+	bash msgsend.sh
 }
 
 deleteMessage(){
