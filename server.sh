@@ -20,7 +20,7 @@ transmitT() {
 
 ipGet() {
 
-	tarr=($(echo $(cut -d ';' -f 1 chatLog.txt))) #echo의 개행을 whitespace로 변환하는 특성을 이용하여서 배열 생성
+	tarr=($(echo $(cut -d ';' -f 4 chatLog.txt))) #echo의 개행을 whitespace로 변환하는 특성을 이용하여서 배열 생성
 	iparr=($(echo "${tarr[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
 
 }
