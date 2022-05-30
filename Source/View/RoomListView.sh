@@ -11,20 +11,22 @@ input_key() {
 
 RoomList() {
     clear
-    cat defaultView.txt
+    cat ./Source/Support/defaultView.txt
     tput civis
     tput cup 2 18; echo "[Room List]"
-    num=`wc -l Roomlist.txt | cut -b 1` # 파일의 길이 -> 채팅방 목록에 번호 할당을 위해서
+    num=`wc -l ./Data/Room/Roomlist.txt | cut -b 1` # 파일의 길이 -> 채팅방 목록에 번호 할당을 위해서
     declare -a roomNum
     declare -a roomName_a
-    
+	##
+    num=8
+
     for(( i=1; i<=$num; i++ )) # 채팅방 목록에 각각 번호 할당
 	    do
-		    roomNum[$i]=`sed -n ${i}p < Roomlist.txt | cut -d ":" -f 1-2`
+		    roomNum[$i]=`sed -n ${i}p < ./Data/Room/Roomlist.txt | cut -d ":" -f 1-2`
 	    done
     for(( i=1; i<=$num; i++ ))
 	    do
-		    roomName_a[$i]=`sed -n ${i}p < Roomlist.txt | cut -d ":" -f 2`
+		    roomName_a[$i]=`sed -n ${i}p < ./Data/Room/Roomlist.txt | cut -d ":" -f 2`
 	    done
     tput cup 5 13; echo "Add Room                          Exit"
 
@@ -56,7 +58,7 @@ RoomList() {
 					    sleep 2
 				    else
 					    clear
-					    bash Addroom.sh
+					    bash ./Source/Support/Addroom.sh
 				    fi
 			    elif [[ $x == 42 ]]; then     # 엔터 -> 나가기를 눌렀을 경우
 				    clear
@@ -71,25 +73,25 @@ RoomList() {
 				    n=`expr $line - 7`
 				    roomName=${roomName_a[$n]}
 				    
-				    if [[ -n `sed -n ${n}p < Roomlist.txt | cut -d ":" -f 4` ]]; then
-				    cat defaultView.txt
+				    if [[ -n `sed -n ${n}p < ./Data/Room/Roomlist.txt | cut -d ":" -f 4` ]]; then
+				    cat ./Source/Support/defaultView.txt
 				    tput cup 7 19; echo "Enter < ${roomName} Room >"
 				    tput cnorm
 				    tput cup 10 15; echo -n "Enter password: "
 				    read passwd
-					    if [[ "`sed -n ${n}p < Roomlist.txt | cut -d ":" -f 4`" == "$passwd" ]]; then
-						    bash room.sh
+					    if [[ "`sed -n ${n}p < ./Data/Room/Roomlist.txt | cut -d ":" -f 4`" == "$passwd" ]]; then
+						    bash ./Source/View/room.sh
 					    else 
 						    tput cup 12 15; echo "incorrect passwd"
 						    sleep 2
 					    fi
 				    else
-					    bash room.sh 
+					    bash ./Source/View/room.sh 
 				    fi
 			    elif [[ $x == 42 ]]; then       # 특정라인의 방삭제를 입력했을 경우
 				    n=`expr $line - 7`
-				    if [[ ${username} == `sed -n ${n}p Roomlist.txt | cut -d ":" -f 3` ]]; then
-					    `sed -i ${n}d Roomlist.txt` # 해당 채팅방 만든 사람만 삭제 가능
+				    if [[ ${username} == `sed -n ${n}p ./Data/Room/Roomlist.txt | cut -d ":" -f 3` ]]; then
+					    `sed -i ${n}d ./Data/Room/Roomlist.txt` # 해당 채팅방 만든 사람만 삭제 가능
 				    else 
 					    echo "access denied"        # 해당 채팅방 만든 사람아니면 삭제 불가
 				    sleep 2

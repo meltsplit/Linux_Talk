@@ -12,7 +12,7 @@ Add_room(){
 while [ true ]
 do
     clear
-    cat defaultView.txt         # 기본 UI 틀 출력
+    cat ./Source/Support/defaultView.txt         # 기본 UI 틀 출력
     tput civis                  # 커서 숨기기
 
     tput cup 2 21; echo "[ Add Room ]"    # 기본 UI 출력
@@ -65,8 +65,8 @@ public(){                      # 오픈채팅방 생성 함수
 	    sleep 3
 	    tput cup 12 14; echo "                      "
     else
-    echo "(Public) Room:${public_room}:${username}" >> Roomlist.txt
-    touch chatLog_${public_room}.txt
+    echo "(Public) Room:${public_room}:${username}" >> ./Data/Room/Roomlist.txt
+    touch ./Data/Chat/chatLog_${public_room}.txt
     tput cup 12 14; echo "Add ${public_room} Room success!"
     sleep 2
     exit
@@ -87,8 +87,8 @@ secret(){                      # 비밀 채팅방 생성 함수
     tput cup 11 14; echo -n "enter passwd: "
     read -s secret_room_p
 
-    echo "(Secret) Room:${secret_room}:${username}:${secret_room_p}" >> Roomlist.txt
-    touch chatLog_${secret_room}.txt
+    echo "(Secret) Room:${secret_room}:${username}:${secret_room_p}" >> ./Data/Room/Roomlist.txt
+    touch ./Data/Chat/chatLog_${secret_room}.txt
 
     tput cup 13 14; echo "Add ${secret_room} Room success!"
     sleep 2
