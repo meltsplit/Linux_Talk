@@ -1,6 +1,8 @@
-(Secret) Room : mingyu :mikekks : 1234
-(Public) Room : PPT :song
-(Public) Room : song's room :song : 1234
-(Secret) Room : 99! : 99 :song
-(Secret) Room : hihi :mikekks : 
-(Public) Room : test99:mikekks
+(Secret) Room:mingyu:mikekks:1234
+(Public) Room:PPT:song
+(Public) Room:song's room:song:1234
+(Secret) Room:99:song:1234
+(Secret) Room:hihi:mikekks:1234 
+(Public) Room:test99:mikekks
+(Secret) Room:my:mikekks:1234
+(Secret) Room:test go:mikekks:1234

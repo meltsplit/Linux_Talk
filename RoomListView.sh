@@ -14,7 +14,7 @@ RoomList() {
     cat defaultView.txt
     tput civis
     tput cup 2 18; echo "[Room List]"
-    num=`wc -l Roomlist.txt | cut -b 1-2` # 파일의 길이 -> 채팅방 목록에 번호 할당을 위해서
+    num=`wc -l Roomlist.txt | cut -b 1` # 파일의 길이 -> 채팅방 목록에 번호 할당을 위해서
     declare -a roomNum
     declare -a roomName_a
     
@@ -50,9 +50,14 @@ RoomList() {
 		    clear
 		    if [[ $line = 5 ]]; then       # 엔터 -> 방추가를 눌렀을 경우
 			    if [[ $x = 7 ]]; then
-				    clear
-				    echo "Add room"
-				    bash Addroom.sh
+				    if [[ $num == 8 ]]; then
+					    clear
+					    tput cup 5 15; echo "delete another room to Add room"
+					    sleep 2
+				    else
+					    clear
+					    bash Addroom.sh
+				    fi
 			    elif [[ $x == 42 ]]; then     # 엔터 -> 나가기를 눌렀을 경우
 				    clear
 				    tput cup 5 20; echo "*** Exit ***"
@@ -66,9 +71,19 @@ RoomList() {
 				    n=`expr $line - 7`
 				    echo "enter ${roomNum[$n]}"
 				    roomName=${roomName_a[$n]}
-				    echo $roomName
-				    sleep 2
-				    bash room.sh                  # 선택한 채팅방으로 이동
+				    
+				    if [[ -n `sed -n ${n}p < Roomlist.txt | cut -d ":" -f 4` ]]; then
+				    echo -n "Enter passwd: "
+				    read passwd
+					    if [[ "`sed -n ${n}p < Roomlist.txt | cut -d ":" -f 4`" == "$passwd" ]]; then
+						    bash room.sh
+					    else 
+						    echo "incorrect passwd"
+						    sleep 2
+					    fi
+					  else
+					    bash room.sh 
+				    fi
 			    elif [[ $x == 42 ]]; then       # 특정라인의 방삭제를 입력했을 경우
 				    n=`expr $line - 7`
 				    if [[ ${username} == `sed -n ${n}p Roomlist.txt | cut -d ":" -f 3` ]]; then

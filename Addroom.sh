@@ -73,7 +73,7 @@ secret(){                      # 비밀 채팅방 생성 함수
     tput cup 11 14; echo -n "enter passwd: "
     read -s secret_room_p
 
-    echo "(Secret) Room : ${secret_room}:${username} : $privateroom_p" >> Roomlist.txt
+    echo "(Secret) Room : ${secret_room}:${username}:${secret_room_p}" >> Roomlist.txt
     touch chatLog_${secret_room}.txt
 
     tput cup 13 14; echo "Add ${secret_room} Room success!"
