@@ -1,4 +1,3 @@
-(Secret) Room:mingyu:mikekks:1234
 (Public) Room:PPT:song
 (Public) Room:song's room:song:1234
 (Secret) Room:99:song:1234

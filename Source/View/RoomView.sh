@@ -7,9 +7,9 @@ nc -lk 1234 > ./Source/Server/rtext.txt &
 changeFile() {
 	while :
 	do
-		if [ ! -z "$(cat ./Source/Server/rtext.txt)" ] && [ "$(cat ./Source/Server/rtext.txt)" != "$(cat ./Data/Chat/chatLog_${roomName}.txt)" ];
+		if [ ! -z "$(cat ./Source/Server/rtext.txt)" ] && [ "$(cat ./Source/Server/rtext.txt)" != "$(cat ./Data/Chat/"chatLog_${roomName}.txt")" ];
 		then
-			cat ./Source/Server/rtext.txt > ./Data/Chat/chatLog_${roomName}.txt
+			cat ./Source/Server/rtext.txt > ./Data/Chat/"chatLog_${roomName}.txt"
 			cat /dev/null > ./Source/Server/rtext.txt
 		fi
 	done
