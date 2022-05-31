@@ -4,7 +4,10 @@
 
 declare -a iparr
 nc -lk 1234 > rtext.txt &
-port=1234
+nc -lk 4321 > rtext.txt &
+
+port1=1234
+port2=4321
 
 #not actual var
 
@@ -31,7 +34,8 @@ do
 	for ip in "${iparr[@]}"
 	do
 #	timeout 1s nc -z ${ip} ${port} #전송 대상 포트 개방 확인
-	timeout 1s nc ${ip} ${port} < chatLog.txt #파일 전송
+	timeout 1s nc ${ip} ${port1} < chatLog.txt #파일 전송
+	timeout 1s nc ${ip} ${port2} < chatLog.txt
 	done
 done
 
