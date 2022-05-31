@@ -43,8 +43,8 @@ check_passwd() {
     fi
     done
 
-    if [ "${password}" == "`grep -w $username userID.txt | cut -d ";" -f 2`" ]; then #Success
-		bash RoomListView.sh  # 화면 전환
+    if [ "${password}" == "`grep -w $username ./Data/User/userID.txt | cut -d ";" -f 2`" ]; then #Success
+		bash ./Source/View/RoomListView.sh  # 화면 전환
 		break 
     else 
     	sleep 1
@@ -66,6 +66,7 @@ check_passwd() {
 LogIn() {  #로그인시작(아이디입력)
     while [ true ]
 	do
+	    cat ./Source/View/defaultView.txt
 	    tput cup 3 23; echo "[ Login ]"
 	    tput cup 6 15; echo -n "Username: "
 	    read username
@@ -74,7 +75,7 @@ LogIn() {  #로그인시작(아이디입력)
 		    break
 	    fi
 
-	    if [ "${username}" == "`grep -w ${username} userID.txt | cut -d ";" -f 1`" ]; then
+	    if [ "${username}" == "`grep -w ${username} ./Data/User/userID.txt | cut -d ";" -f 1`" ]; then
 		    exist="true" #ID가 존재
 	    fi
     
@@ -98,7 +99,7 @@ LogIn() {  #로그인시작(아이디입력)
 
 			    if [[ -z $input ]]; then
 				    if [[ $x = 23 ]]; then
-					    bash SignUpView.sh 
+					    bash ./Source/View/SignUpView.sh 
 				    fi
 				    break
 			    fi
@@ -121,8 +122,9 @@ SignInView() {
 	do
     clear
     tput cnorm
-    cat defaultView.txt
+
     LogIn
+	
 	done
 }
 

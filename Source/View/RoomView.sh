@@ -2,14 +2,14 @@ declare -i ten_Minute=600
 GREP_COLOR="46"
 ip=`ip route get 8.8.8.8 | cut -d ' ' -f 7 | tr -s '\n'`
 
-nc -lk 1234 > rtext.txt &
+nc -lk 1234 > ./Source/Server/rtext.txt &
 
 changeFile() {
-	while [ true ]
+	while :
 	do
-		if [ ! -z "$(cat rtext.txt)" ] && [ "$(cat rtext.txt)" != "$(cat chatLog_${roomName}.txt)" ];
+		if [ ! -z "$(cat ./Source/Server/rtext.txt)" ] && [ "$(cat ./Source/Server/rtext.txt)" != "$(cat ./Data/Chat/chatLog_${roomName}.txt)" ];
 		then
-			cat rtext.txt > chatLog_${roomName}.txt
+			cat ./Source/Server/rtext.txt > ./Data/Chat/chatLog_${roomName}.txt
 		fi
 	done
 }
@@ -19,8 +19,8 @@ sendMessage(){
 	tput cnorm
 	read msg
 
-	echo "$(date);${username};${msg};${ip};|" >> "chatLog_${roomName}.txt"
-	bash msgsend.sh
+	echo "$(date);${username};${msg};${ip};|" >> ./Data/Chat/"chatLog_${roomName}.txt"
+	bash ./Source/Server/msgsend.sh
 }
 
 deleteMessage(){
@@ -40,17 +40,17 @@ deleteMessage(){
 		delNum=`echo ${line}|cut -d '|' -f 2`
 
 		if [ "${d}" = "${delNum}" ]; then
-                sed -i "${lineNum}s/.*/${time};${user};---(Delete Message)---;|/g" "chatLog_${roomName}.txt"
+                sed -i "${lineNum}s/.*/${time};${user};---(Delete Message)---;|/g" ./Data/Chat/"chatLog_${roomName}.txt"
 		fi
 
 		lineNum=`expr $lineNum + 1`
 
-	done < "chatLog_${roomName}.txt"
-	bash msgsend.sh	
+	done < ./Data/Chat/"chatLog_${roomName}.txt"
+	bash ./Source/Server/msgsend.sh	
 
 }
 deleteUnsetting(){
-    sed -i 's/|.*/|/g' "chatLog_${roomName}.txt"
+    sed -i 's/|.*/|/g' ./Data/Chat/"chatLog_${roomName}.txt"
 }
 
 
@@ -72,13 +72,13 @@ deleteSetting(){
 		if [ "${username}" = "${user}" ]; then
 			if [ ${timeInterval} -le ${ten_Minute} ]; then
 				if [ "${message}" != "---(Delete Message)---" ]; then
-				sed -i "${lineNum}s/.*/${time};${user};${message};|$delNum/g" "chatLog_${roomName}.txt"
+				sed -i "${lineNum}s/.*/${time};${user};${message};|$delNum/g" ./Data/Chat/"chatLog_${roomName}.txt"
 				delNum=`expr $delNum + 1`
 				fi
 			fi
 		fi
 		lineNum=`expr $lineNum + 1`
-	done < "chatLog_${roomName}.txt"
+	done < ./Data/Chat/"chatLog_${roomName}.txt"
 	
 }
 
@@ -86,6 +86,7 @@ showChat(){
 	${mode}View
 	tput cup 1 49
 	
+	if [ "" != "$chatCount" ]; then
 	
 	if [ $lastLine -lt 7 ];then
 		lastLine=7
@@ -93,8 +94,12 @@ showChat(){
 		lastLine=$chatCount
 	fi 
 	
+	if [ $chatCount = 1 ]; then
+		chatCount=2
+	fi
 	currentPage=`expr \( ${lastLine} + 4 \) / 6`
 	totalPage=`expr \( ${chatCount} + 4 \)  / 6`
+	
 	echo "${currentPage}/${totalPage} page"
 	
 	x_chat=3
@@ -121,7 +126,7 @@ showChat(){
 		prev_Date=0
 	fi
 	
-	line=`sed -n ${i}p < "chatLog_${roomName}.txt"` 
+	line=`sed -n ${i}p < ./Data/Chat/"chatLog_${roomName}.txt"` 
 	
 	
 	time=`echo ${line}|cut -d ';' -f 1`
@@ -180,6 +185,7 @@ showChat(){
 	
 	count=`expr ${count} + 1`
 	done
+	fi
 }
 
 findMessage(){
@@ -191,8 +197,7 @@ findMessage(){
 
 	read findMsg
 
-    chatLog_${roomName}.txt | cut -d ';' -f 3 | grep -c ${findMsg}
-    findArray=( `cat "chatLog_${roomName}.txt" | cut -d ';' -f 3 | grep -n  ${findMsg}| cut -d ':' -f 1` )
+    findArray=( `cat ./Data/Chat/"chatLog_${roomName}.txt" | cut -d ';' -f 3 | grep -n  ${findMsg}| cut -d ':' -f 1` )
     findCount=${#findArray[*]}
     findNum=${findCount}
 
@@ -336,7 +341,7 @@ Room_Select(){
 	x=2
 	y=28
 	DefaultView 
-	chatCount=`wc -l < "chatLog_${roomName}.txt"`
+	chatCount=`wc -l < ./Data/Chat/"chatLog_${roomName}.txt"`
 	lastLine=$chatCount
 while :
 do  
@@ -345,12 +350,13 @@ do
 	selectMark
 	
 	read -sn 3 KEY
+	
 	case "$y"
 	in
 	"28")
 	if [[ -z ${KEY} ]]; then  
 		sendMessage  
-		chatCount=`wc -l < "chatLog_${roomName}.txt"`
+		chatCount=`wc -l < ./Data/Chat/"chatLog_${roomName}.txt"`
 		lastLine=$chatCount
 		
 	elif [ "${KEY}" = "[A" ]; then  #up
@@ -440,7 +446,7 @@ Delete_Select(){
 	mode=Delete
 	deleteSetting
 	DeleteView
-	chatCount=`wc -l < "chatLog_${roomName}.txt"`
+	chatCount=`wc -l < ./Data/Chat/"chatLog_${roomName}.txt"`
 	lastLine=$chatCount
 while :
 do  
@@ -518,7 +524,7 @@ Find_Select(){
 	FindView 
     mode=Find
     findExist=false
-	chatCount=`wc -l< "chatLog_${roomName}.txt"`
+	chatCount=`wc -l< ./Data/Chat/"chatLog_${roomName}.txt"`
 	lastLine=$chatCount
 
     findCount=0
