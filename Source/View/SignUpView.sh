@@ -7,7 +7,7 @@ input_key() {
 
 SignUpView() {
     clear
-    cat defaultView.txt
+    cat ./Source/View/defaultView.txt
 	    tput cnorm
 	    tput cup 5 10; echo -n "Your username? : "
 	    read username  #글자수 제한하고 싶은데 -n 옵션하면 백스페이스 키가 안먹는다?
@@ -19,7 +19,7 @@ SignUpView() {
 		    exit
 	    
 	    else
-	    existing_id=`cat userID.txt | cut -d ";" -f 1 | grep -w "$username"`
+	    existing_id=`cat ./Data/User/userID.txt | cut -d ";" -f 1 | grep -w "$username"`
 
 		    while [ "$username" = "$existing_id" ]
 			    do
@@ -27,7 +27,7 @@ SignUpView() {
 				    sleep 2
 				    tput cup 5 10; echo -n "Please enter another ID : "
 				    read username
-				    existing_id=`cat userID.txt | cut -d ";" -f 1 | grep -w "$username"`
+				    existing_id=`cat ./Data/User/userID.txt | cut -d ";" -f 1 | grep -w "$username"`
 			    done
 
     tput cup 7 10; echo -n "Your password? : "
@@ -49,7 +49,7 @@ do
 
     if [[ -z $input ]]; then
 	    if [[ $x = 20 ]]; then
-		    echo "${username};${password}" >> userID.txt
+		    echo "${username};${password}" >> ./Data/User/userID.txt
 		    echo -e "\n"
 		    SignUp_success
 		    break
@@ -72,7 +72,7 @@ fi
 
 SignUp_success() {
     clear
-    cat defaultView.txt
+    cat ./Source/View/defaultView.txt
     tput cup 5 17; echo "*----------------------*"
     tput cup 6 17; echo "|                      |"
     tput cup 7 17; echo "|   Sign Up success!   |"

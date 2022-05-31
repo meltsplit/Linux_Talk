@@ -114,8 +114,8 @@ main_view() {
 
 selected_item(){
     	case ${items[$SELECTED]} in
-	    "1.sign in") bash SignInView.sh ;; #화면 전환
-	    "2.sign up") bash SignUpView.sh ;; #화면 전환
+	    "1.sign in") bash ./Source/View/SignInView.sh ;; #화면 전환
+	    "2.sign up") bash ./Source/View/SignUpView.sh ;; #화면 전환
 	    "3.exit   ") ;;
 	    *) errorMode break;;
 	esac
