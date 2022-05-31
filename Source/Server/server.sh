@@ -13,16 +13,16 @@ port2=2222
 
 transmitT() {
 
-	if [ ! -z "$(echo $(cat ./Source/Server/rtext.txt))" ]; #원래는 -n을 사용하려 했으나 작동 X
+	if [ ! -z "$(echo $(cat rtext.txt))" ]; #원래는 -n을 사용하려 했으나 작동 X
 	then
-		cat ./Source/Server/rtext.txt > ./Source/Server/chatLog.txt
-		cat /dev/null > ./Source/Server/rtext.txt
+		cat rtext.txt > chatLog.txt
+		cat /dev/null > rtext.txt
 	fi
 }
 
 ipGet() {
 
-	tarr=($(echo $(cut -d ';' -f 4 ./Source/Server/chatLog.txt))) #echo의 개행을 whitespace로 변환하는 특성을 이용하여서 배열 생성
+	tarr=($(echo $(cut -d ';' -f 4 chatLog.txt))) #echo의 개행을 whitespace로 변환하는 특성을 이용하여서 배열 생성
 	iparr=($(echo "${tarr[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
 
 }
@@ -34,8 +34,8 @@ do
 	for ip in "${iparr[@]}"
 	do
 #	timeout 1s nc -z ${ip} ${port} #전송 대상 포트 개방 확인
-	timeout 1s nc ${ip} ${port1} < ./Source/Server/chatLog.txt #파일 전송
-	timeout 1s nc ${ip} ${port2} < ./Source/Server/chatLog.txt #파일 전송
+	timeout 1s nc ${ip} ${port1} < chatLog.txt #파일 전송
+	timeout 1s nc ${ip} ${port2} < chatLog.txt #파일 전송
 	done
 done
 
