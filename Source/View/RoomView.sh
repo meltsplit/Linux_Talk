@@ -2,11 +2,13 @@ declare -i ten_Minute=600
 GREP_COLOR="46"
 ip=`ip route get 8.8.8.8 | cut -d ' ' -f 7 | tr -s '\n'`
 
+
 nc -lk 1234 > ./Source/Server/rtext.txt &
 
 changeFile() {
 	while :
 	do
+		sed -i 's/\x0//g' ./Source/Server/rtext.txt
 		if [ ! -z "$(cat ./Source/Server/rtext.txt)" ] && [ "$(cat ./Source/Server/rtext.txt)" != "$(cat ./Data/Chat/"chatLog_${roomName}.txt")" ];
 		then
 			cat ./Source/Server/rtext.txt > ./Data/Chat/"chatLog_${roomName}.txt"
