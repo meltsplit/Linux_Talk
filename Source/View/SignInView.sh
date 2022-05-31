@@ -66,6 +66,7 @@ check_passwd() {
 LogIn() {  #로그인시작(아이디입력)
     while [ true ]
 	do
+	    cat ./Source/View/defaultView.txt
 	    tput cup 3 23; echo "[ Login ]"
 	    tput cup 6 15; echo -n "Username: "
 	    read username
@@ -121,8 +122,9 @@ SignInView() {
 	do
     clear
     tput cnorm
-    cat ./Source/Support/defaultView.txt
+
     LogIn
+	
 	done
 }
 
