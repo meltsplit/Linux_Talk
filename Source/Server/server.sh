@@ -12,7 +12,7 @@ port2=2222
 #not actual var
 
 transmitT() {
-
+	sed -i 's/\x0//g' rtext.txt
 	if [ ! -z "$(echo $(cat rtext.txt))" ]; #원래는 -n을 사용하려 했으나 작동 X
 	then
 		cat rtext.txt > chatLog.txt
