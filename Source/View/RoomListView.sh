@@ -41,7 +41,7 @@ RoomList() {
     
 	  line=8
 	  x=7
-    while [ true ]
+    while :
 	do
 	    tput cup $line $x; echo "->"     # 방향키 움직임 화살표로 표현
 
@@ -64,6 +64,8 @@ RoomList() {
 				    clear
 				    tput cup 5 20; echo "*** Exit ***"
 				    sleep 2
+				    clear
+				    tput cnorm
 				    exit
 			    fi
 
@@ -137,11 +139,9 @@ RoomList() {
 done
 }
 
-while [ true ]
+while :
 do
-
     RoomList
-
 done
 
 
