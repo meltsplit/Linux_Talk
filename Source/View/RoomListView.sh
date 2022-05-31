@@ -11,7 +11,7 @@ input_key() {
 
 RoomList() {
     clear
-    cat ./Source/Support/defaultView.txt
+    cat ./Source/View/defaultView.txt
     tput civis
     tput cup 2 18; echo "[Room List]"
     num=`wc -l ./Data/Room/Roomlist.txt | cut -b 1` # 파일의 길이 -> 채팅방 목록에 번호 할당을 위해서
@@ -58,7 +58,7 @@ RoomList() {
 					    sleep 2
 				    else
 					    clear
-					    bash ./Source/Support/Addroom.sh
+					    bash ./Source/View/AddRoomView.sh
 				    fi
 			    elif [[ $x == 42 ]]; then     # 엔터 -> 나가기를 눌렀을 경우
 				    clear
@@ -74,19 +74,19 @@ RoomList() {
 				    roomName=${roomName_a[$n]}
 				    
 				    if [[ -n `sed -n ${n}p < ./Data/Room/Roomlist.txt | cut -d ":" -f 4` ]]; then
-				    cat ./Source/Support/defaultView.txt
+				    cat ./Source/View/defaultView.txt
 				    tput cup 7 19; echo "Enter < ${roomName} Room >"
 				    tput cnorm
 				    tput cup 10 15; echo -n "Enter password: "
 				    read passwd
 					    if [[ "`sed -n ${n}p < ./Data/Room/Roomlist.txt | cut -d ":" -f 4`" == "$passwd" ]]; then
-						    bash ./Source/View/room.sh
+						    bash ./Source/View/RoomView.sh
 					    else 
 						    tput cup 12 15; echo "incorrect passwd"
 						    sleep 2
 					    fi
 				    else
-					    bash ./Source/View/room.sh 
+					    bash ./Source/View/RoomView.sh 
 				    fi
 			    elif [[ $x == 42 ]]; then       # 특정라인의 방삭제를 입력했을 경우
 				    n=`expr $line - 7`

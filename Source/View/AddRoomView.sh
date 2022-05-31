@@ -12,7 +12,7 @@ Add_room(){
 while [ true ]
 do
     clear
-    cat ./Source/Support/defaultView.txt         # 기본 UI 틀 출력
+    cat ./Source/View/defaultView.txt         # 기본 UI 틀 출력
     tput civis                  # 커서 숨기기
 
     tput cup 2 21; echo "[ Add Room ]"    # 기본 UI 출력
