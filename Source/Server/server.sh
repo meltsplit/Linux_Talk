@@ -3,8 +3,8 @@
 #nc -l 1234; nc -l 1234 > chatLog1.txt와 같은 식으로 코드를 작성해야 연속적인 동작이 가능합니다.
 
 declare -a iparr
-nc -lk 1234 > ./Source/Server/rtext.txt &
-nc -lk 2222 > ./Source/Server/rtext.txt &
+nc -lk 1234 > rtext.txt &
+nc -lk 2222 > rtext.txt &
 
 port1=1234
 port2=2222
