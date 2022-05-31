@@ -356,7 +356,7 @@ do
 	"28")
 	if [[ -z ${KEY} ]]; then  
 		sendMessage  
-		chatCount=`wc -l < "chatLog_${roomName}.txt"`
+		chatCount=`wc -l < ./Data/Chat/"chatLog_${roomName}.txt"`
 		lastLine=$chatCount
 		
 	elif [ "${KEY}" = "[A" ]; then  #up
