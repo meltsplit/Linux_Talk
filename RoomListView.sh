@@ -62,6 +62,8 @@ RoomList() {
 				    clear
 				    tput cup 5 20; echo "*** Exit ***"
 				    sleep 2
+				    clear
+				    tput cnorm
 				    exit
 			    fi
 
