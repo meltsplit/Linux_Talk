@@ -10,6 +10,7 @@ changeFile() {
 		if [ ! -z "$(cat ./Source/Server/rtext.txt)" ] && [ "$(cat ./Source/Server/rtext.txt)" != "$(cat ./Data/Chat/chatLog_${roomName}.txt)" ];
 		then
 			cat ./Source/Server/rtext.txt > ./Data/Chat/chatLog_${roomName}.txt
+			cat /dev/null > ./Source/Server/rtext.txt
 		fi
 	done
 }
