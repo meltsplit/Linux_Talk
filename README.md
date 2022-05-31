@@ -2,32 +2,32 @@
 # Linux_FinalProject
 리눅스 활용실습 기말 과제 채팅프로그램  </br></br>
 
-## 폴더링
+## 폴더링 
 ```
 Linux_Final Project
    │
-   |── ChattingProgram.sh (실행 파일)
+   |── ✉️ChattingProgram.sh (실행 파일)
    |
-   |── Source
+   |── 🗂Source
    |   |
-   │   |── View 
-   |   |    └── (각 화면을 구성하는 bash 파일s)
+   │   |── 🗂View 
+   |   |       └── (각 화면을 구성하는 bash 파일s)
    │   |    
    │   |
    │   | 
-   │   └── Server 
-   |          └── (서버 관련 파일s)
+   │   └── 🗂Server 
+   |           └── (서버 관련 파일s)
    │    
    │    
    │    
    │    
-   └── Data
-       |── Chat 
-       |     └ (chatLog.txt 파일s)
-       |── User
-       |     └ (가입된 유저 정보 파일)
-       └── Room
-             └ (생성된 방 정보 파일)
+   └── 🗂Data
+        |── 🗂Chat 
+        |      └ (chatLog.txt 파일s)
+        |── 🗂User
+        |      └ (가입된 유저 정보 파일)
+        └── 🗂Room
+               └ (생성된 방 정보 파일)
 ```
 
 
