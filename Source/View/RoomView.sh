@@ -1,6 +1,13 @@
 declare -i ten_Minute=600
 GREP_COLOR="46"
 
+server_on(){
+while
+do
+	scp songmingyu@111.222.333.444:./Data/Chat/"chatLog_${roomName}.txt" ./Data/Chat/"chatLog_${roomName}.txt"
+done
+}
+
 #호출 상황: Room뷰에서 Send 기능을 눌렀을 때
 sendMessage(){
 	tput cup 28 12
@@ -731,5 +738,6 @@ findExist=false
 mode=Default # 다시 모드 Default로 설정
 }
 
+server_on &
 Room_Select
 
