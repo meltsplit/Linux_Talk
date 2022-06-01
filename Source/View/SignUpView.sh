@@ -77,7 +77,7 @@ fi
 SignUp_success() {   # 회원가입이 성공적으로 되었다는 것을 알려주기 위한 함수
     clear
     cat ./Source/View/defaultView.txt
-    tput cup 5 17; echo "*----------------------*"    " 회원가입이 성공되었다고 출력"
+    tput cup 5 17; echo "*----------------------*"    #" 회원가입이 성공되었다고 출력"
     tput cup 6 17; echo "|                      |"
     tput cup 7 17; echo "|   Sign Up success!   |"
     tput cup 8 17; echo "|                      |"
