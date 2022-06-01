@@ -2,6 +2,10 @@
 
 export username="default name"
 
+ssh -p 1234 test@111.111.111.111
+ssh-keygen -t rsa -C "rsa Key" < input_key.txt
+ssh-copy-id id_rsa.pub -p 1234 test@111.111.111.111
+
 tutorial(){
 tput cup 0 0
 
