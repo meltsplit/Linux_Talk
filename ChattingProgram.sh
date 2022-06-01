@@ -2,18 +2,14 @@
 
 export username="default name"     # 로그인한 아이디(username) 전역 변수로 설정
 
-<<<<<<< HEAD
 ssh -p 1234 test@111.111.111.111
 ssh-keygen -t rsa -C "rsa Key" < input_key.txt
 ssh-copy-id id_rsa.pub -p 1234 test@111.111.111.111
 
 tutorial(){
-=======
 
 # 전체화면을 하지 않으면 화면이 깨지기 때문에 전체화면으로 할 것을 권유해주는 함수
-# enter를 누르면 메인 프로그램 시작
-tutorial(){                        
->>>>>>> master
+# enter를 누르면 메인 프로그램 시작                        
 tput cup 0 0
 
 while :
