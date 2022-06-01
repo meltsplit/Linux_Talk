@@ -11,7 +11,7 @@ notifyCh(){
 		then
 			if [ "${chatCount}" != "${watchCount}" ]; #채팅 파일과 화면 상에 사용된 채팅 파일의 줄의 수가 다를 시에
 			then
-				notify-send "New message incoming!" #새로운 메세지로 옴을 알림
+				notify-send "New message incoming!" #새로운 메세지가 수신되었음을 알림
 				sleep 10s #무분별한 알림 발생 방지
 			fi
 		fi
