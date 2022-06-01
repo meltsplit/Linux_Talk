@@ -1,0 +1,13 @@
+Tue 31 May 2022 08:33:04 PM KST;yeom;eqweqwe;10.20.14.87;|
+Wed Jun  1 22:35:50 KST 2022;user1000;;;|
+Wed Jun  1 22:36:15 KST 2022;user1000;hello;;|
+Wed Jun  1 22:36:17 KST 2022;user1000;wow;;|
+Wed Jun  1 22:36:21 KST 2022;user1000;what>;;|
+Wed Jun  1 22:39:20 KST 2022;user1000;wow;;|
+Wed Jun  1 22:39:27 KST 2022;ee;hello;;|
+Wed Jun  1 22:39:31 KST 2022;user1000;alsk;;|
+Wed Jun  1 22:39:45 KST 2022;user1000;la;;|
+Thu Jun  2 00:06:18 KST 2022;ee;hey;;|
+Thu Jun  2 00:07:37 KST 2022;ee;yes;;|
+Thu Jun  2 02:51:20 KST 2022;ee;hello;;|
+Thu Jun  2 02:51:23 KST 2022;ss;wow;;|
