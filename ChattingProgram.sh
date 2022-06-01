@@ -2,9 +2,6 @@
 
 export username="default name"     # 로그인한 아이디(username) 전역 변수로 설정
 
-ssh -p 1234 test@111.111.111.111
-ssh-keygen -t rsa -C "rsa Key" < input_key.txt
-ssh-copy-id id_rsa.pub -p 1234 test@111.111.111.111
 
 tutorial(){
 
