@@ -18,8 +18,11 @@ notifyCh(){
 				tput sc
 				tput cup 28 45
 				echo -ne "\e[5m\e[92mNew Message\e[0m" #새로운 메세지 수신 시 커서 깜박이기
+				tput cup 28 45
+				echo "            "
 				tput rc
 				sleep 4s
+				
 			fi
 		fi
 	done
