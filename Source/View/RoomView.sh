@@ -2,13 +2,36 @@ declare -i ten_Minute=600
 
 GREP_COLOR="46"
 
+#새로운 메시지 수신 알림, 백그라운드로 실행하여서 지속적으로 메세지를 확인할 수 있도록 한다.
+notifyCh(){ 
+	declare -i showFlag=1
+	declare -i alertCount=0
+	echo -n 0 > ./Data/User/"prevNum_${username}"
+	while [ true ]
+	do
+		watchCount="$(wc -l < ./Data/Chat/"chatLog_${roomName}.txt")" #현재 채팅 파일의 줄의 수
+		chatCount=$(cat ./Data/User/"prevNum_${username}") #프로그램에서 출력되고 있는 채팅의 줄의 수
+		if [ -n "${chatCount}" ]; #채팅 파일의 줄의 수의 값이 존재할 때(프로그램이 실행되었을 때)
+		then
+			if [ "${chatCount}" != "${watchCount}" ]; #채팅 파일과 화면 상에 사용된 채팅 파일의 줄의 수가 다를 시에
+			then
+				tput sc
+				tput cup 28 45
+				echo -ne "\e[5m\e[92mNew Message\e[0m" #새로운 메세지 수신 시 커서 깜박이기
+				tput rc
+				sleep 4s
+			fi
+		fi
+	done
+}
+
 #호출 상황: Room뷰에서 Send 기능을 눌렀을 때
 sendMessage(){
 	tput cup 28 12
 	tput cnorm
 	read msg     #메세지 입력을 받는다.
 
-	#메세지를 보낸 사용자, 보낸 시간, 보낸 IP를 필드 ';'로 구분하여 chatLog파일에 추가.
+	#메세지를 보낸 시간와 보낸 사용자, 메세지의 내용을 필드 ';'로 구분하여 chatLog파일에 추가.
 	# delete 가능한 함수는 임시적으로 | 뒤에 숫자를 지정한다.
 	echo "$(date);${username};${msg};|" >> ./Data/Chat/"chatLog_${roomName}.txt" 
 }
@@ -103,7 +126,10 @@ deleteSetting(){
 showChat(){
 	${mode}View #mode에 따라 받는 뷰를 표시한다.
 	
-	
+	# 다른 컴퓨터에서 전송했다면 chatCount와 currentChatCount가 다를 것이다
+	currentChatCount=`wc -l < ./Data/Chat/"chatLog_${roomName}.txt"`
+	echo -n "${chatCount}" > ./Data/User/"prevNum_${username}"
+
 	
 	#만약 채팅방이 빈방이라면 접근하지 못하게 하여 에러 가능성을 줄인다. chatCount는 그 방의 메세지 개수를 저장하는 변수이다.
 	if [ "" != "$chatCount" ]; then 
@@ -738,4 +764,5 @@ findExist=false
 mode=Default # 다시 모드 Default로 설정
 }
 
+notifyCh &
 Room_Select
