@@ -1,4 +1,5 @@
 declare -i ten_Minute=600
+
 GREP_COLOR="46"
 
 #새로운 메시지 수신 알림, 백그라운드로 실행하여서 지속적으로 메세지를 확인할 수 있도록 한다.
@@ -33,7 +34,6 @@ sendMessage(){
 	#메세지를 보낸 시간와 보낸 사용자, 메세지의 내용을 필드 ';'로 구분하여 chatLog파일에 추가.
 	# delete 가능한 함수는 임시적으로 | 뒤에 숫자를 지정한다.
 	echo "$(date);${username};${msg};|" >> ./Data/Chat/"chatLog_${roomName}.txt" 
-	#showChat
 }
 
 #호출 상황: Delete뷰에서 Delete 기능을 눌렀을 때
@@ -51,12 +51,12 @@ deleteMessage(){
 
 		time=`echo ${line}|cut -d ';' -f 1` #line에서 시간 정보를 time에 저장
 		user=`echo ${line}|cut -d ';' -f 2` #line에서 사용자 이름를 user에 저장
-		message=`echo ${line}|cut -d ';' -f 3`#line에서 메세지 내용를 message에 저장
+		message=`echo ${line}|cut -d ';' -f 3` #line에서 메세지 내용를 message에 저장
 
-		delNum=`echo ${line}|cut -d '|' -f 2` #line에서 delete 번호를 delNum에 저장
+		delNumber=`echo ${line}|cut -d '|' -f 2` #line에서 delete 번호를 delNum에 저장
 
 		# 사용자가 입력한 번호가 delNum와 일치한다면. (사용자가 삭제하고 싶은 메시지)
-		if [ "${d}" = "${delNum}" ]; then  
+		if [ "${d}" = "${delNumber}" ]; then  
 				# 그 메세지중 message 부분을 ---(Delete message)---로 치환한다.
                 sed -i "${lineNum}s/.*/${time};${user};---(Delete Message)---;|/g" ./Data/Chat/"chatLog_${roomName}.txt"
 		fi
@@ -70,7 +70,7 @@ deleteMessage(){
 
 #Delete 가능한 메세지 여부를 표시한 번호들을 모두 삭제한다. 
 deleteUnsetting(){
-	# "date;user;msg;ip;|1" -> "date;user;msg;ip;|"  
+	# ex) "date;user;msg;|1" -> "date;user;msg;|"  
 	# 위와 같이 가장 끝에 할당된 삭제 가능 번호를 지우는 기능을 구현한다.
 
     sed -i 's/|.*/|/g' ./Data/Chat/"chatLog_${roomName}.txt"
@@ -82,7 +82,7 @@ deleteUnsetting(){
 #   2. 10분 이내에 입력했는가?
 # 두 조건을 만족하는 메세지에 번호를 할당해준다.
 deleteSetting(){	
-	declare -i delNum=1
+	delNum=0
 	declare -i lineNum=1
 	deleteUnsetting
 
@@ -102,15 +102,15 @@ deleteSetting(){
 		if [ "${username}" = "${user}" ]; then # 조건 1: 사용자가 입력한 메시지인가?
 			if [ ${timeInterval} -le ${ten_Minute} ]; then # 조건 2: 10분 이내의 메세지 인가?
 				if [ "${message}" != "---(Delete Message)---" ]; then # 추가 조건: 이미 삭제된 메세지는 다시 삭제할 수 없다.
-				
+				delNum=`expr $delNum + 1` # delNum이 1씩 증가하도록 설정
 				# 위의 조건들을 성립한다면 해당 라인의 말단에 delNum 값을 추가한다.
 				sed -i "${lineNum}s/.*/${time};${user};${message};|$delNum/g" ./Data/Chat/"chatLog_${roomName}.txt" 
-				delNum=`expr $delNum + 1` # delNum이 1씩 증가하도록 설정
+				
 
 				fi
 			fi
 		fi
-		lineNum=`expr $lineNum + 1`# lineNum이 1씩 증가하도록 설정
+		lineNum=`expr $lineNum + 1` # lineNum이 1씩 증가하도록 설정
 	done < ./Data/Chat/"chatLog_${roomName}.txt" 
 	
 }
@@ -129,9 +129,13 @@ showChat(){
 	# 다른 컴퓨터에서 전송했다면 chatCount와 currentChatCount가 다를 것이다
 	currentChatCount=`wc -l < ./Data/Chat/"chatLog_${roomName}.txt"`
 	echo -n "${chatCount}" > ./Data/User/"prevNum_${username}"
+
 	
 	#만약 채팅방이 빈방이라면 접근하지 못하게 하여 에러 가능성을 줄인다. chatCount는 그 방의 메세지 개수를 저장하는 변수이다.
 	if [ "" != "$chatCount" ]; then 
+	
+	# 다른 컴퓨터에서 전송했다면 chatCount와 currentChatCount가 다를 것이다
+	currentChatCount=`wc -l < ./Data/Chat/"chatLog_${roomName}.txt"`
 	
 		#만약 다른 컴퓨터에서 채팅로그를 수정했다면 조건문 안으로 들어간다.
 		if [ "$chatCount" != "$currentChatCount" ]; then
@@ -147,14 +151,15 @@ showChat(){
 		fi 
 		
 		# 예외 처리: chatCount가 1일때도 페이지가 0이라고 계산되는 오류.
-		if [ $chatCount = 1 ]; then 
-			chatCount=2
+		if [ $chatCount -le 1 ]; then 
+			chatCount=7
 		fi
 
 		# 페이지를 계산하는 수학 식.
 		currentPage=`expr \( ${lastLine} + 4 \) / 6` 
 		totalPage=`expr \( ${chatCount} + 4 \)  / 6` 
-
+		
+		
 		tput cup 1 49
 		echo "${currentPage}/${totalPage} page" #페이지 우측 상단에 페이지 나타냄.
 		
@@ -556,9 +561,12 @@ Delete_Select(){
 	lastLine=$chatCount
 while : #키보드를 입력 받고 다시 반복.
 do  
-	
-	showChat ${lastLine}
+       
+	showChat
 	selectMark
+	
+	tput cup 1 3
+    	echo "deleteable:" $delNum
 	
 	read -sn 3 KEY
 
@@ -607,7 +615,7 @@ do
 			y=26 # 커서 변경
 			selectMark
 		else
-			lastLine=`expr $lastLine + 6`#채팅 아래로
+			lastLine=`expr $lastLine + 6` #채팅 아래로
 		fi
 			
 	else
@@ -642,7 +650,7 @@ Find_Select(){
     findNum=0
 while :
 do 
-	showChat ${lastLine}
+	showChat 
 	selectMark
 
 	tput cup 1 3
@@ -758,4 +766,3 @@ mode=Default # 다시 모드 Default로 설정
 
 notifyCh &
 Room_Select
-
