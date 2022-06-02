@@ -4,9 +4,7 @@ GREP_COLOR="46"
 
 #새로운 메시지 수신 알림, 백그라운드로 실행하여서 지속적으로 메세지를 확인할 수 있도록 한다.
 notifyCh(){ 
-	declare -i showFlag=1
-	declare -i alertCount=0
-	echo -n 0 > ./Data/User/"prevNum_${username}"
+	echo -n 0 > ./Data/User/"prevNum_${username}" #프로그램에서 출력되는 채팅 줄 수를 저장할 파일 생성
 	while [ true ]
 	do
 		watchCount="$(wc -l < ./Data/Chat/"chatLog_${roomName}.txt")" #현재 채팅 파일의 줄의 수
@@ -15,14 +13,11 @@ notifyCh(){
 		then
 			if [ "${chatCount}" != "${watchCount}" ]; #채팅 파일과 화면 상에 사용된 채팅 파일의 줄의 수가 다를 시에
 			then
-				tput sc
-				tput cup 28 45
+				tput sc #커서 위치 저장
+				tput cup 28 45 #알림 표시 위치로 화면 이동
 				echo -ne "\e[5m\e[92mNew Message\e[0m" #새로운 메세지 수신 시 커서 깜박이기
-				tput cup 28 45
-				echo "            "
-				tput rc
-				sleep 4s
-				
+				tput rc #커서 위치 복원
+				sleep 4s #리소스 사용 제한을 위한 대기 시간
 			fi
 		fi
 	done
@@ -481,6 +476,7 @@ do
 		 elif [ $x = 23  ]; then #Delete 좌표일 때
 		 	Delete_Select #delete함수 호출
 		 elif [ $x = 42 ]; then #Exit 좌표일 때 
+		 	kill ${bgPid} > /dev/null #새로운 메시지 확인 프로세스 종료
 		 	break # Room -> RoomListView로 나감.
 		 fi
 	elif [ "${KEY}" = "[A" ]; then  # [UP] # 커서이동
@@ -697,7 +693,6 @@ do
                 continue
             fi
 		 elif [ $x = 42 ]; then #EXIT
-		 	kill -9 ${bgPid}
 		 	break
 		 fi
 	elif [ "${KEY}" = "[A" ]; then  #up
@@ -769,5 +764,5 @@ mode=Default # 다시 모드 Default로 설정
 }
 
 notifyCh &
-bgPid=$!
+bgPid=$! #새로운 채팅 확인 프로세스 ID 저장
 Room_Select
