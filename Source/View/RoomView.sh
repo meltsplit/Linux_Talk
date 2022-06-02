@@ -694,6 +694,7 @@ do
                 continue
             fi
 		 elif [ $x = 42 ]; then #EXIT
+		 	kill -9 ${bgPid}
 		 	break
 		 fi
 	elif [ "${KEY}" = "[A" ]; then  #up
@@ -765,4 +766,5 @@ mode=Default # 다시 모드 Default로 설정
 }
 
 notifyCh &
+bgPid=$!
 Room_Select
