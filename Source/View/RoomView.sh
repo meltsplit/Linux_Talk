@@ -4,16 +4,18 @@ GREP_COLOR="46"
 #새로운 메시지 수신 알림, 백그라운드로 실행하여서 지속적으로 메세지를 확인할 수 있도록 한다.
 notifyCh(){ 
 	declare -i alertCount=0
+	echo -n 0 > ./Data/User/"prevNum_${username}"
 	while [ true ]
 	do
 		watchCount="$(wc -l < ./Data/Chat/"chatLog_${roomName}.txt")" #현재 채팅 파일의 줄의 수
 		chatCount=$(cat ./Data/User/"prevNum_${username}") #프로그램에서 출력되고 있는 채팅의 줄의 수
 		if [ -n "${chatCount}" ]; #채팅 파일의 줄의 수의 값이 존재할 때(프로그램이 실행되었을 때)
 		then
-			if [ "${chatCount}" != "${watchCount}" ] && [ $alertCount -lt 2 ]; #채팅 파일과 화면 상에 사용된 채팅 파일의 줄의 수가 다를 시에
+			if [ "${chatCount}" != "${watchCount}" ] && [ $alertCount -le 1 ] && [ $chatCount -ne 0 ]; #채팅 파일과 화면 상에 사용된 채팅 파일의 줄의 수가 다를 시에
 			then
 				notify-send "New message incoming!" #새로운 메세지가 수신되었음을 알림
 				alertCount=$(($alertCount+1))
+				sleep 4s
 			fi
 			if [ "${chatCount}" = "${watchCount}" ]; #다음 행동 사까지 알림 발생 방지
 			then
