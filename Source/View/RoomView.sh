@@ -478,6 +478,7 @@ do
 		 elif [ $x = 23  ]; then #Delete 좌표일 때
 		 	Delete_Select #delete함수 호출
 		 elif [ $x = 42 ]; then #Exit 좌표일 때 
+		 	kill ${bgPid} #새로운 메시지 확인 프로세스 종료
 		 	break # Room -> RoomListView로 나감.
 		 fi
 	elif [ "${KEY}" = "[A" ]; then  # [UP] # 커서이동
@@ -694,7 +695,6 @@ do
                 continue
             fi
 		 elif [ $x = 42 ]; then #EXIT
-		 	kill -9 ${bgPid}
 		 	break
 		 fi
 	elif [ "${KEY}" = "[A" ]; then  #up
