@@ -6,14 +6,16 @@
 ![채팅방 GIF](https://user-images.githubusercontent.com/57269348/173251680-fdf86c29-6740-45cf-bf66-8933190dafdb.gif)
 </br>
 
-## 찾기 기능
-</br>
-
 ## 삭제기능
 ![삭제 GIF](https://user-images.githubusercontent.com/57269348/173252097-62bee70b-625c-4845-aab7-5801f19635ad.gif)
 </br>
 
-## 폴더링 
+## 찾기 기능
+![찾기 GIF](https://user-images.githubusercontent.com/57269348/173252395-c9ebabf8-0644-40c1-bddf-426c248953bd.gif)
+</br>
+
+
+# 폴더링 
 ```
 Linux_Final Project
    │
@@ -44,7 +46,7 @@ Linux_Final Project
 ```
 
 
-## Commit Rule
+# Commit Rule
 
 ```
 [Feat] : 새로운 기능 구현
