@@ -2,13 +2,15 @@
 # Linux_FinalProject
 리눅스 활용실습 기말 과제 채팅프로그램  </br></br>
 # 구현 영상
-## 회원가입, 로그인, 채팅방 생성
-</br>
 ## 채팅방
+![채팅방 GIF](https://user-images.githubusercontent.com/57269348/173251680-fdf86c29-6740-45cf-bf66-8933190dafdb.gif)
 </br>
+
 ## 찾기 기능
 </br>
+
 ## 삭제기능
+![삭제 GIF](https://user-images.githubusercontent.com/57269348/173252097-62bee70b-625c-4845-aab7-5801f19635ad.gif)
 </br>
 
 ## 폴더링 
